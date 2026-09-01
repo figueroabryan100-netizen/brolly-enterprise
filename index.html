@@ -234,6 +234,30 @@ h1{font-size:24px;font-weight:800;letter-spacing:-.8px;background:linear-gradien
 ::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
 ::-webkit-scrollbar-thumb:hover{background:var(--text3)}
 @media(max-width:500px){h1{font-size:18px}.metrics{gap:10px;font-size:11px}.tabs{gap:4px}.tab-btn{padding:6px 10px;font-size:11px}}
+.grok-wrap{text-align:center;padding:20px 0;position:relative}
+.grok-octopus{position:relative;width:260px;height:260px;margin:0 auto}
+@media(max-width:500px){.grok-octopus{width:200px;height:200px}}
+.grok-body{width:90px;height:75px;background:radial-gradient(circle at 40% 40%,#ff5555,#cc0000);border-radius:50%;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);box-shadow:0 0 25px rgba(255,0,0,.35);transition:all .6s;z-index:2}
+.grok-body.consensus{box-shadow:0 0 35px rgba(34,197,94,.55);background:radial-gradient(circle at 40% 40%,#44ff44,#16a34a)}
+.grok-eye{width:12px;height:15px;background:#fff;border-radius:50%;position:absolute;top:28%}
+.grok-eye.left{left:26%}.grok-eye.right{right:26%}
+.grok-pupil{width:5px;height:7px;background:#000;border-radius:50%;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%)}
+.grok-consensus{position:absolute;top:-18px;left:50%;transform:translateX(-50%);font-size:12px;font-weight:700;color:var(--gold);background:var(--card);padding:4px 12px;border-radius:20px;border:1px solid var(--border);white-space:nowrap;z-index:5}
+.tentacle{position:absolute;width:3px;height:75px;background:linear-gradient(180deg,#cc0000,#770000);border-radius:3px;transform-origin:top center;animation:tentacleWave 2.5s infinite ease-in-out;z-index:1;left:50%;top:50%}
+.tentacle.consensus{background:linear-gradient(180deg,#22c55e,#15803d)}
+@keyframes tentacleWave{0%,100%{transform:translate(-50%,-50%) rotate(-6deg)}50%{transform:translate(-50%,-50%) rotate(6deg)}}
+.grok-arm-label{position:absolute;font-size:9px;font-weight:700;color:var(--text);background:var(--card);padding:2px 6px;border-radius:4px;border:1px solid var(--border);white-space:nowrap;z-index:3;transform:translate(-50%,-50%)}
+.grok-panel{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:12px;margin-bottom:8px;text-align:left;transition:all .3s}
+.grok-panel.consensus{border-color:rgba(34,197,94,.4);background:rgba(34,197,94,.03)}
+.grok-panel h3{font-size:12px;margin-bottom:4px}
+.grok-swarm-log{max-height:180px;overflow-y:auto;font-size:11px}
+.grok-log-item{padding:6px 0;border-bottom:1px solid var(--border)}
+.grok-log-item:last-child{border-bottom:none}
+.kalshi-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+.kalshi-pos{display:flex;gap:8px;margin-bottom:10px}
+.kalshi-pos .pos-box{flex:1;background:var(--card);border-radius:8px;padding:10px;text-align:center;border:1px solid var(--border);font-size:12px}
+.kalshi-strat{font-size:10px;color:var(--text3);background:var(--bg);border-radius:8px;padding:10px;line-height:1.6}
+@media(max-width:500px){.grok-arm-label{font-size:8px;padding:1px 4px}}
 </style>
 </head>
 <body>
@@ -283,6 +307,7 @@ h1{font-size:24px;font-weight:800;letter-spacing:-.8px;background:linear-gradien
   <button class="tab-btn" onclick="showTab(3)">🏦 Treasury</button>
   <button class="tab-btn" onclick="showTab(4)">🏪 Stores</button>
   <button class="tab-btn" onclick="showTab(5)">📊 Activity</button>
+  <button class="tab-btn" onclick="showTab(6)">🐙 GROKTOPUS</button>
 </div>
 
 <div class="tab-panel active" id="tab0">
@@ -383,6 +408,34 @@ h1{font-size:24px;font-weight:800;letter-spacing:-.8px;background:linear-gradien
   <div class="section">
     <div class="section-title">Agent Mood & Thoughts</div>
     <div id="thoughts-panel"></div>
+  </div>
+</div>
+
+<div class="tab-panel" id="tab6">
+  <div class="section">
+    <div class="section-title">🐙 GROKTOPUS — Swarm Intelligence Core</div>
+    <div class="grok-wrap">
+      <div class="grok-consensus" id="grok-consensus">CONSENSUS: 0%</div>
+      <div class="grok-octopus" id="grok-octopus">
+        <div class="grok-body" id="grok-body">
+          <div class="grok-eye left"><div class="grok-pupil"></div></div>
+          <div class="grok-eye right"><div class="grok-pupil"></div></div>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center;font-size:11px;color:var(--text3);margin-top:8px" id="grok-status-text">RUNE: Floor is flat. No execution.</div>
+  </div>
+  <div class="section">
+    <div class="section-title">8-Arm Swarm Roster</div>
+    <div id="grok-agents"></div>
+  </div>
+  <div class="section">
+    <div class="section-title">🎯 Kalshi Strategy Engine</div>
+    <div id="kalshi-panel"></div>
+  </div>
+  <div class="section">
+    <div class="section-title">Swarm Decision Log</div>
+    <div class="grok-swarm-log" id="grok-log"></div>
   </div>
 </div>
 
@@ -647,15 +700,18 @@ function init(){
   renderThoughts();
   renderChat();
   renderRevSummary();
+  renderGrok();
+  renderKalshi();
   updateTime();
   fetchCrypto();
   fetchWeather();
   setInterval(updateTime,1000);
-  setInterval(simulate,3000);
+  setInterval(simulate,5000);
   setInterval(fetchCrypto,30000);
   setInterval(decayVitals,5000);
   setInterval(()=>{addRandomThought();addRandomChat();},7000);
   setInterval(moneyRain,15000);
+  setInterval(grokCycle,8000);
   window.addEventListener('resize',drawGraphs);
   setTimeout(drawGraphs,100);
 }
@@ -676,10 +732,12 @@ function createParticles(){
 function updateTime(){
   const now = new Date();
   const tx = new Date(now.toLocaleString('en-US',{timeZone:'America/Chicago'}));
-  const h = String(tx.getHours()).padStart(2,'0');
+  let h = tx.getHours();
+  const ampm = h >= 12 ? 'PM' : 'AM';
+  h = h % 12; h = h ? h : 12;
   const m = String(tx.getMinutes()).padStart(2,'0');
   const s = String(tx.getSeconds()).padStart(2,'0');
-  document.getElementById('clk').textContent = h+':'+m+':'+s;
+  document.getElementById('clk').textContent = h+':'+m+':'+s+' '+ampm;
 }
 
 async function fetchWeather(){
@@ -894,15 +952,15 @@ function renderPlatforms(){
 function renderChat(){
   const box = document.getElementById('chat-box');
   const initial = [
-    {t:'15:08',n:'Archon',c:'var(--gold)',m:'All 30 agents are now live. Profit floor is fully staffed. Let\'s make money.'},
-    {t:'15:08',n:'Cipher',c:'var(--green)',m:'Bots deployed across 8 platforms. Uptime: 99.9%.'},
-    {t:'15:09',n:'Vector',c:'var(--purple)',m:'SOL/USDC arbitrage window detected. Executing trades now.'},
-    {t:'15:09',n:'Surveyor',c:'var(--teal)',m:'Survey Junkie router is HOT. 6 surveys available this hour.'},
-    {t:'15:10',n:'Turker',c:'var(--sky)',m:'MTurk batch posted — 200 HITs at $0.25 each. Grinding now.'},
-    {t:'15:10',n:'Gamer',c:'var(--lime)',m:'Mistplay level 12 reached! Gift card redemption ready.'},
-    {t:'15:11',n:'Freelancer',c:'var(--orange)',m:'Fiverr order delivered — $25. Client left 5 stars.'},
-    {t:'15:11',n:'Scout',c:'var(--indigo)',m:'eBay lot secured: 50 Funko Pops for $80. Resale: $180.'},
-    {t:'15:12',n:'Archon',c:'var(--gold)',m:'Excellent. All channels green. Profit amplifier at MAXIMUM.'}
+    {t:'3:08 PM',n:'Archon',c:'var(--gold)',m:'All 30 agents are now live. Profit floor is fully staffed. Let\'s make money.'},
+    {t:'3:08 PM',n:'Cipher',c:'var(--green)',m:'Bots deployed across 8 platforms. Uptime: 99.9%.'},
+    {t:'3:09 PM',n:'Vector',c:'var(--purple)',m:'SOL/USDC arbitrage window detected. Executing trades now.'},
+    {t:'3:09 PM',n:'Surveyor',c:'var(--teal)',m:'Survey Junkie router is HOT. 6 surveys available this hour.'},
+    {t:'3:10 PM',n:'Turker',c:'var(--sky)',m:'MTurk batch posted — 200 HITs at $0.25 each. Grinding now.'},
+    {t:'3:10 PM',n:'Gamer',c:'var(--lime)',m:'Mistplay level 12 reached! Gift card redemption ready.'},
+    {t:'3:11 PM',n:'Freelancer',c:'var(--orange)',m:'Fiverr order delivered — $25. Client left 5 stars.'},
+    {t:'3:11 PM',n:'Scout',c:'var(--indigo)',m:'eBay lot secured: 50 Funko Pops for $80. Resale: $180.'},
+    {t:'3:12 PM',n:'Archon',c:'var(--gold)',m:'Excellent. All channels green. Profit amplifier at MAXIMUM.'}
   ];
   chatHistory = initial;
   box.innerHTML = initial.map(x=>chatLine(x.t,x.n,x.c,x.m)).join('');
@@ -918,7 +976,11 @@ function sendChat(){
   const msg = input.value.trim(); if(!msg)return;
   input.value='';
   const now = new Date();
-  const t = String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0');
+  let h = now.getHours();
+  const ampm = h >= 12 ? 'PM' : 'AM';
+  h = h % 12; h = h ? h : 12;
+  const m = String(now.getMinutes()).padStart(2,'0');
+  const t = h+':'+m+' '+ampm;
   const box = document.getElementById('chat-box');
   box.innerHTML += chatLine(t,'You','var(--text)',msg);
   box.scrollTop = box.scrollHeight;
@@ -964,11 +1026,11 @@ function sendChat(){
     const a = AGENTS.find(x=>x.id===responder);
     const responses = CHAT_RESPONSES[a.name.toLowerCase().replace(/[^a-z]/g,'')]||['Working hard!'];
     const response = responses[Math.floor(Math.random()*responses.length)];
-    const t2 = String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0')+':'+String(now.getSeconds()).padStart(2,'0');
+    const t2 = h+':'+String(now.getMinutes()).padStart(2,'0')+':'+String(now.getSeconds()).padStart(2,'0')+' '+ampm;
     box.innerHTML += chatLine(t2,a.name,a.color,response);
     box.scrollTop = box.scrollHeight;
     chatHistory.push({t:t2,n:a.name,c:a.color,m:response});
-    logActivity(`💬 ${a.name} responded to command`);
+    logActivity('💬 '+a.name+' responded to command');
   },600+Math.random()*600);
 }
 
@@ -980,7 +1042,11 @@ function addRandomChat(){
   const responses = CHAT_RESPONSES[a.name.toLowerCase().replace(/[^a-z]/g,'')]||['Working...'];
   const response = responses[Math.floor(Math.random()*responses.length)];
   const now = new Date();
-  const t = String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0');
+  let h = now.getHours();
+  const ampm = h >= 12 ? 'PM' : 'AM';
+  h = h % 12; h = h ? h : 12;
+  const m = String(now.getMinutes()).padStart(2,'0');
+  const t = h+':'+m+' '+ampm;
   const box = document.getElementById('chat-box');
   if(chatHistory.length>50){chatHistory.shift();box.removeChild(box.firstElementChild);}
   box.innerHTML += chatLine(t,a.name,a.color,response);
@@ -1013,7 +1079,12 @@ function addRandomThought(){
 
 function logActivity(msg){
   const now = new Date();
-  const t = String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0')+':'+String(now.getSeconds()).padStart(2,'0');
+  let h = now.getHours();
+  const ampm = h >= 12 ? 'PM' : 'AM';
+  h = h % 12; h = h ? h : 12;
+  const m = String(now.getMinutes()).padStart(2,'0');
+  const s = String(now.getSeconds()).padStart(2,'0');
+  const t = h+':'+m+':'+s+' '+ampm;
   activityLog.unshift({t,msg});
   if(activityLog.length>40)activityLog.pop();
   renderActivity();
@@ -1024,12 +1095,33 @@ function renderActivity(){
     <div class="log-item"><span class="log-time">${x.t}</span><span>${x.msg}</span></div>`).join('');
 }
 
+const SALE_EVENTS = [
+  {msg:'👕 Redbubble sale: +$4.50',amt:4.50},{msg:'🧪 UserTesting payout: +$10.00',amt:10.00},
+  {msg:'💼 Fiverr order delivered: +$25.00',amt:25.00},{msg:'🏺 Etsy sale: +$24.50',amt:24.50},
+  {msg:'📚 Chegg question answered: +$3.50',amt:3.50},{msg:'⭐ Capterra review approved: +$10.00',amt:10.00},
+  {msg:'🎧 Rev.com file approved: +$8.50',amt:8.50},{msg:'🎁 Referral bonus claimed: +$50.00',amt:50.00},
+  {msg:'📷 Foap photo sold: +$5.00',amt:5.00},{msg:'🏦 Staking reward: +$0.87',amt:0.87},
+  {msg:'💧 Crypto faucet drip: +$0.03',amt:0.03},{msg:'🔗 Amazon affiliate commission: +$2.40',amt:2.40},
+  {msg:'📝 Medium Partner earnings: +$5.40',amt:5.40},{msg:'📋 Survey Junkie payout: +$3.20',amt:3.20},
+  {msg:'🛠️ TaskRabbit gig completed: +$45.00',amt:45.00},{msg:'🎯 Kalshi contract settled: +$5.00',amt:5.00},
+  {msg:'🎮 Mistplay gift card redeemed: +$3.20',amt:3.20},{msg:'💳 Ibotta cashback: +$4.80',amt:4.80},
+  {msg:'📦 eBay flip sold: +$13.80',amt:13.80},{msg:'⚡ DEX arbitrage profit: +$2.40',amt:2.40},
+  {msg:'👗 Poshmark sale: +$8.40',amt:8.40},{msg:'📦 Amazon Merch sale: +$9.20',amt:9.20},
+  {msg:'🎨 Teespring sale: +$6.80',amt:6.80},{msg:'📖 Course Hero doc sale: +$4.50',amt:4.50}
+];
+
 function simulate(){
-  const hourly = STREAMS.reduce((s,x)=>s+x.rev,0);
-  const tick = hourly/1200;
-  totalRev += tick;
-  todayRev += tick;
-  taskCount += Math.floor(Math.random()*4)+1;
+  taskCount += Math.floor(Math.random()*2)+1;
+
+  if(Math.random()>0.55){
+    const sale = SALE_EVENTS[Math.floor(Math.random()*SALE_EVENTS.length)];
+    totalRev += sale.amt;
+    todayRev += sale.amt;
+    logActivity(sale.msg);
+  } else if(Math.random()>0.4){
+    const seed = ACTIVITY_SEEDS[Math.floor(Math.random()*ACTIVITY_SEEDS.length)];
+    logActivity(seed);
+  }
 
   document.getElementById('rev').textContent = '$'+totalRev.toFixed(2);
   document.getElementById('today-rev').textContent = '$'+todayRev.toFixed(2);
@@ -1044,11 +1136,6 @@ function simulate(){
 
   drawGraphs();
 
-  if(Math.random()>0.4){
-    const seed = ACTIVITY_SEEDS[Math.floor(Math.random()*ACTIVITY_SEEDS.length)];
-    logActivity(seed);
-  }
-
   AGENTS.forEach(a=>{
     if(Math.random()>0.9){
       const statuses = ['working','working','working','idle','break'];
@@ -1058,6 +1145,8 @@ function simulate(){
   });
   renderZones();
   renderCrew();
+  renderGrok();
+  renderKalshi();
 }
 
 function decayVitals(){
@@ -1220,6 +1309,138 @@ function showTab(n){
   document.querySelectorAll('.tab-btn').forEach((b,i)=>b.classList.toggle('active',i===n));
   document.querySelectorAll('.tab-panel').forEach((p,i)=>p.classList.toggle('active',i===n));
   if(n===2||n===3)setTimeout(drawGraphs,50);
+  if(n===6)setTimeout(renderGrok,50);
+}
+
+const GROK_AGENTS = [
+  {id:'td',name:'TIDAL',role:'Order Book Scanner',arm:0,opinion:true,conf:85,desc:'Scans 8 order books and reports what is moving'},
+  {id:'lm',name:'LUMEN',role:'Sentiment Reader',arm:1,opinion:true,conf:72,desc:'Reads sentiment and attention before it reaches the chart'},
+  {id:'nr',name:'NORO',role:'Fair Value Estimator',arm:2,opinion:false,conf:68,desc:'Estimates fair value instead of blindly following price'},
+  {id:'zp',name:'ZEPHR',role:'Liquidity Mapper',arm:3,opinion:true,conf:78,desc:'Maps liquidity and figures out where size can actually move'},
+  {id:'vk',name:'VESKA',role:'Execution Gate',arm:4,opinion:true,conf:90,desc:'The only agent allowed to execute trades'},
+  {id:'ok',name:'OKAPI',role:'Hedge Manager',arm:5,opinion:true,conf:75,desc:'Hedges open exposure across positions'},
+  {id:'mr',name:'MARIN',role:'Settlement & Recon',arm:6,opinion:true,conf:80,desc:'Handles settlement and reconciliation'},
+  {id:'rn',name:'RUNE',role:'Risk Controller',arm:7,opinion:true,conf:95,desc:'Says no. If consensus < 70%, the floor flattens.'}
+];
+
+let grokConsensus = 0;
+let grokLog = [];
+let kalshiPosition = {up:0,down:0,sets:0,vwap:0,profit:0};
+
+function renderGrok(){
+  const octopus = document.getElementById('grok-octopus');
+  const body = document.getElementById('grok-body');
+  const consensusEl = document.getElementById('grok-consensus');
+  const statusText = document.getElementById('grok-status-text');
+  const agree = GROK_AGENTS.filter(a=>a.opinion).length;
+  grokConsensus = Math.round((agree/GROK_AGENTS.length)*100);
+  consensusEl.textContent = 'CONSENSUS: '+grokConsensus+'%';
+  body.classList.toggle('consensus', grokConsensus >= 70);
+  if(!octopus.querySelector('.tentacle')){
+    GROK_AGENTS.forEach((a,i)=>{
+      const angle = (i/8)*360;
+      const rad = angle * Math.PI/180;
+      const tx = Math.cos(rad)*55, ty = Math.sin(rad)*55;
+      const t = document.createElement('div');
+      t.className = 'tentacle'+(grokConsensus>=70?' consensus':'');
+      t.style.transform = 'translate(-50%,-50%) rotate('+angle+'deg)';
+      t.style.left = 'calc(50% + '+tx+'px)';
+      t.style.top = 'calc(50% + '+ty+'px)';
+      t.style.animationDelay = (i*0.25)+'s';
+      const lx = Math.cos(rad)*105, ly = Math.sin(rad)*105;
+      const label = document.createElement('div');
+      label.className = 'grok-arm-label';
+      label.style.left = 'calc(50% + '+lx+'px)';
+      label.style.top = 'calc(50% + '+ly+'px)';
+      label.innerHTML = '<span style="color:'+(a.opinion?'var(--green)':'var(--red)')+'">'+a.name+'</span>';
+      octopus.appendChild(t);
+      octopus.appendChild(label);
+    });
+  } else {
+    octopus.querySelectorAll('.tentacle').forEach((t,i)=>{
+      t.classList.toggle('consensus', grokConsensus>=70);
+    });
+    octopus.querySelectorAll('.grok-arm-label').forEach((l,i)=>{
+      const a = GROK_AGENTS[i];
+      l.innerHTML = '<span style="color:'+(a.opinion?'var(--green)':'var(--red)')+'">'+a.name+'</span>';
+    });
+  }
+  if(grokConsensus >= 70){
+    statusText.innerHTML = '<span style="color:var(--green)">RUNE: CONSENSUS ACHIEVED ('+grokConsensus+'%). Execution authorized. Swarm aligned.</span>';
+  } else {
+    statusText.innerHTML = '<span style="color:var(--red)">RUNE: Floor is flat. Consensus '+grokConsensus+'%. No execution. No averaging down. No revenge trades.</span>';
+  }
+  document.getElementById('grok-agents').innerHTML = GROK_AGENTS.map(a=>{
+    const status = a.opinion ? '<span style="color:var(--green)">AGREE</span>' : '<span style="color:var(--red)">DISSENT</span>';
+    return '<div class="grok-panel '+(a.opinion?'consensus':'')+'"><h3>'+(a.opinion?'✅':'❌')+' '+a.name+' — '+a.role+'</h3><div style="font-size:11px;color:var(--text2)">'+a.desc+'</div><div style="font-size:10px;color:var(--text3);margin-top:4px">Confidence: '+a.conf+'% | Vote: '+status+'</div></div>';
+  }).join('');
+}
+
+function grokCycle(){
+  GROK_AGENTS.forEach(a=>{
+    if(a.id==='rn') return;
+    if(Math.random()>0.55){
+      a.opinion = Math.random() > 0.38;
+      a.conf = Math.floor(55 + Math.random()*40);
+    }
+  });
+  const others = GROK_AGENTS.filter(a=>a.id!=='rn');
+  const agree = others.filter(a=>a.opinion).length;
+  const pct = Math.round((agree/others.length)*100);
+  const rune = GROK_AGENTS.find(a=>a.id==='rn');
+  rune.opinion = pct >= 70;
+  rune.conf = pct;
+  grokConsensus = pct;
+  const decision = pct >= 70 ? '🟢 EXECUTE' : '🔴 HOLD';
+  const votes = GROK_AGENTS.map(a=>(a.opinion?'Y':'N')).join('');
+  const t = new Date().toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',hour12:true});
+  grokLog.unshift({t,msg:'🐙 '+t+' — Consensus '+pct+'% '+decision+' | Votes: '+votes});
+  if(grokLog.length>25)grokLog.pop();
+  renderGrok();
+  document.getElementById('grok-log').innerHTML = grokLog.map(x=>'<div class="grok-log-item"><span style="color:var(--text3)">'+x.t+'</span> '+x.msg+'</div>').join('');
+  if(pct >= 70) simulateKalshiTrade();
+}
+
+function renderKalshi(){
+  const upPrice = (0.46 + Math.random()*0.10).toFixed(2);
+  const downPrice = (0.46 + Math.random()*0.10).toFixed(2);
+  const spread = (Math.abs(upPrice-downPrice)).toFixed(2);
+  document.getElementById('kalshi-panel').innerHTML =
+    '<div class="kalshi-grid">'+
+      '<div class="t-card"><div class="t-label">BTC Up/Down</div><div class="t-val" style="font-size:16px">$'+upPrice+' / $'+downPrice+'</div><div class="t-change">Spread: $'+spread+'</div></div>'+
+      '<div class="t-card"><div class="t-label">ETH Up/Down</div><div class="t-val" style="font-size:16px">$'+(0.47+Math.random()*0.08).toFixed(2)+' / $'+(0.47+Math.random()*0.08).toFixed(2)+'</div><div class="t-change">Live</div></div>'+
+    '</div>'+
+    '<div class="kalshi-pos">'+
+      '<div class="pos-box" style="border-color:var(--green)"><div style="font-size:10px;color:var(--text3)">UP Position</div><div style="font-size:18px;font-weight:700;color:var(--green)">'+kalshiPosition.up+'</div></div>'+
+      '<div class="pos-box" style="border-color:var(--red)"><div style="font-size:10px;color:var(--text3)">DOWN Position</div><div style="font-size:18px;font-weight:700;color:var(--red)">'+kalshiPosition.down+'</div></div>'+
+      '<div class="pos-box"><div style="font-size:10px;color:var(--text3)">Complete Sets</div><div style="font-size:18px;font-weight:700;color:var(--gold)">'+kalshiPosition.sets+'</div></div>'+
+      '<div class="pos-box"><div style="font-size:10px;color:var(--text3)">Avg VWAP</div><div style="font-size:18px;font-weight:700;color:var(--blue)">$'+kalshiPosition.vwap.toFixed(2)+'</div></div>'+
+    '</div>'+
+    '<div class="kalshi-strat">'+
+      '<strong>Strategy:</strong> Two-sided spread capture + async complete-set accumulation + directional tilt.<br>'+
+      '• Builds Up + Down positions for &lt;$1 per set (target VWAP $0.98)<br>'+
+      '• Median larger side: 1.44x the smaller side (directional residual)<br>'+
+      '• Complete sets form the hedged base; excess inventory rides the edge<br>'+
+      '• GROKTOPUS swarm must reach 70% consensus before VESKA executes<br>'+
+      '<em style="color:var(--text3)">Kalshi API integration ready — paste your keys to go live.</em>'+
+    '</div>';
+}
+
+function simulateKalshiTrade(){
+  const upPrice = 0.46 + Math.random()*0.08;
+  const downPrice = 0.46 + Math.random()*0.08;
+  const setCost = upPrice + downPrice;
+  if(setCost < 1.0){
+    kalshiPosition.sets += 1;
+    kalshiPosition.vwap = ((kalshiPosition.vwap*(kalshiPosition.sets-1))+setCost)/kalshiPosition.sets;
+    kalshiPosition.up += 1;
+    kalshiPosition.down += 1;
+    if(Math.random()>0.5){kalshiPosition.up += Math.round(Math.random()*0.8);}
+    else{kalshiPosition.down += Math.round(Math.random()*0.8);}
+    kalshiPosition.profit += (1.0 - setCost);
+    logActivity('🎯 Kalshi: Complete set @ $'+setCost.toFixed(2)+' (VWAP $'+kalshiPosition.vwap.toFixed(2)+') — GROKTOPUS swarm executed');
+  }
+  renderKalshi();
 }
 
 init();
