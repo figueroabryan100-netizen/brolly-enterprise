@@ -3,235 +3,1226 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<title>Brolly Enterprise — 24/7 Command</title>
+<title>Brolly Enterprise v4 — 30-Agent Profit Army</title>
 <style>
-:root{--bg:#050508;--card:#0f0f14;--border:#1e1e2e;--text:#e2e2e8;--text2:#8b8b9e;--text3:#555568;--blue:#3b82f6;--red:#ef4444;--green:#22c55e;--purple:#a855f7;--gray:#6b7280;--gold:#f59e0b;--cyan:#06b6d4;--pink:#ec4899;--orange:#f97316;--teal:#14b8a6;--indigo:#6366f1;--yellow:#eab308;--amber:#d97706}
-*{box-sizing:border-box;margin:0;padding:0}body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--text);padding:12px;line-height:1.4;min-height:100vh;-webkit-text-size-adjust:100%}
-#app{max-width:960px;margin:0 auto}
-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:10px}
-h1{font-size:22px;font-weight:700;letter-spacing:-.5px;background:linear-gradient(90deg,var(--text),var(--text2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+:root{--bg:#050508;--card:#0f0f14;--border:#1e1e2e;--text:#e2e2e8;--text2:#8b8b9e;--text3:#555568;--blue:#3b82f6;--red:#ef4444;--green:#22c55e;--purple:#a855f7;--gray:#6b7280;--gold:#f59e0b;--cyan:#06b6d4;--pink:#ec4899;--orange:#f97316;--teal:#14b8a6;--indigo:#6366f1;--yellow:#eab308;--amber:#d97706;--lime:#84cc16;--rose:#f43f5e;--sky:#0ea5e9;--violet:#8b5cf6;--emerald:#10b981;--slate:#64748b}
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--text);padding:12px;line-height:1.4;min-height:100vh;-webkit-text-size-adjust:100%;overflow-x:hidden}
+#app{max-width:1100px;margin:0 auto;position:relative}
+#particles{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;overflow:hidden}
+.particle{position:absolute;width:3px;height:3px;background:var(--gold);border-radius:50%;opacity:.3;animation:floatParticle 8s infinite ease-in-out}
+@keyframes floatParticle{0%,100%{transform:translateY(0) translateX(0);opacity:.1}25%{transform:translateY(-30px) translateX(10px);opacity:.4}50%{transform:translateY(-60px) translateX(-10px);opacity:.2}75%{transform:translateY(-30px) translateX(15px);opacity:.3}}
+header{position:relative;z-index:1;display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:10px}
+h1{font-size:24px;font-weight:800;letter-spacing:-.8px;background:linear-gradient(90deg,var(--gold),var(--orange),var(--red));-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:titleShine 3s infinite}
+@keyframes titleShine{0%,100%{filter:brightness(1)}50%{filter:brightness(1.3)}}
 .sub{font-size:11px;color:var(--text3);margin-top:2px}
-.live-badge{display:inline-flex;align-items:center;gap:6px;font-size:11px;color:var(--green);background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.2);padding:4px 10px;border-radius:20px}
+.live-badge{display:inline-flex;align-items:center;gap:6px;font-size:11px;color:var(--green);background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.2);padding:4px 10px;border-radius:20px;animation:glowPulse 2s infinite}
+@keyframes glowPulse{0%,100%{box-shadow:0 0 0 0 rgba(34,197,94,.2)}50%{box-shadow:0 0 10px 2px rgba(34,197,94,.1)}}
 .live-dot{width:7px;height:7px;border-radius:50%;background:var(--green);animation:pulse 2s infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.2}}
 .metrics{display:flex;gap:16px;font-size:13px;color:var(--text2);flex-wrap:wrap;margin-top:4px}
 .metrics strong{color:var(--text);font-weight:600;font-variant-numeric:tabular-nums}
-.section{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:16px;margin-bottom:14px}
+.weather-bar{display:flex;gap:12px;align-items:center;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:10px 14px;margin-bottom:14px;font-size:12px;position:relative;z-index:1;overflow:hidden}
+.weather-bar::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--sky),var(--blue))}
+.weather-icon{font-size:20px}
+.weather-loc{font-weight:600}
+.weather-temp{font-size:14px;font-weight:700;color:var(--gold)}
+.weather-desc{color:var(--text3)}
+.crypto-ticker{display:flex;gap:16px;overflow-x:auto;padding:12px;background:var(--card);border:1px solid var(--border);border-radius:12px;margin-bottom:14px;position:relative;z-index:1}
+.crypto-item{display:flex;align-items:center;gap:6px;font-size:12px;white-space:nowrap;background:var(--bg);padding:6px 12px;border-radius:8px;border:1px solid var(--border)}
+.crypto-price{font-weight:700;font-variant-numeric:tabular-nums;font-size:13px}
+.crypto-change{font-size:10px;font-weight:600}
+.crypto-up{color:var(--green)}.crypto-down{color:var(--red)}
+.profit-boost{position:relative;z-index:1;background:linear-gradient(135deg,rgba(245,158,11,.1),rgba(239,68,68,.1));border:1px solid rgba(245,158,11,.2);border-radius:16px;padding:16px;text-align:center;margin-bottom:14px;overflow:hidden}
+.profit-boost::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:linear-gradient(45deg,transparent,rgba(245,158,11,.04),transparent);animation:shimmer 6s infinite}
+@keyframes shimmer{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
+.profit-boost-text{font-size:15px;font-weight:700;color:var(--gold);letter-spacing:.5px;position:relative;z-index:1}
+.profit-boost-sub{font-size:11px;color:var(--text3);margin-top:4px;position:relative;z-index:1}
+.tabs{position:relative;z-index:1;display:flex;gap:6px;margin-bottom:14px;overflow-x:auto;padding-bottom:4px}
+.tab-btn{background:transparent;border:1px solid var(--border);color:var(--text2);padding:8px 14px;border-radius:10px;font-size:12px;font-weight:500;cursor:pointer;white-space:nowrap;flex:1;text-align:center;transition:all .2s}
+.tab-btn.active{background:var(--card);color:var(--text);border-color:var(--blue)}
+.tab-btn:hover:not(.active){border-color:var(--text3)}
+.tab-panel{display:none;position:relative;z-index:1}
+.tab-panel.active{display:block;animation:panelIn .3s}
+@keyframes panelIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.section{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:16px;margin-bottom:14px;position:relative;z-index:1}
 .section-title{font-size:11px;font-weight:700;color:var(--text2);margin-bottom:12px;text-transform:uppercase;letter-spacing:1.5px;display:flex;align-items:center;gap:8px}
 .section-title::before{content:'';width:4px;height:14px;border-radius:2px;background:var(--blue)}
-.treasury-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
-@media(min-width:600px){.treasury-grid{grid-template-columns:1fr 1fr 1fr 1fr}}
-.t-card{background:linear-gradient(135deg,rgba(59,130,246,.08),rgba(168,85,247,.08));border:1px solid var(--border);border-radius:12px;padding:14px;text-align:center;position:relative;overflow:hidden}
-.t-card::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--blue),var(--purple))}
-.t-label{font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px}
-.t-val{font-size:26px;font-weight:700;font-variant-numeric:tabular-nums}
-.t-change{font-size:10px;color:var(--green);margin-top:4px}
 .zone-grid{display:grid;grid-template-columns:1fr;gap:10px}
-@media(min-width:600px){.zone-grid{grid-template-columns:1fr 1fr}}
-.zone{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:14px;position:relative;overflow:hidden}
-.zone::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:var(--blue)}
+@media(min-width:700px){.zone-grid{grid-template-columns:1fr 1fr}}
+.zone{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:14px;position:relative;overflow:hidden;transition:border-color .3s}
+.zone:hover{border-color:var(--blue)}
+.zone::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:linear-gradient(180deg,var(--blue),var(--purple))}
 .zone-name{font-size:14px;font-weight:600;margin-bottom:8px;display:flex;align-items:center;gap:8px}
 .zone-icon{font-size:18px}
 .facilities{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
-.tag{font-size:10px;color:var(--text2);background:var(--card);border:1px solid var(--border);padding:3px 8px;border-radius:6px}
+.tag{font-size:10px;color:var(--text2);background:var(--card);border:1px solid var(--border);padding:3px 8px;border-radius:6px;transition:all .2s}
+.tag:hover{border-color:var(--blue);color:var(--text)}
+.tag.hot{color:var(--green);border-color:var(--green);animation:tagPulse 2s infinite}
+@keyframes tagPulse{0%,100%{box-shadow:0 0 0 0 rgba(34,197,94,.1)}50%{box-shadow:0 0 8px 1px rgba(34,197,94,.15)}}
 .agents{display:flex;flex-direction:column;gap:8px}
-.agent-chip{display:flex;align-items:center;gap:10px;padding:8px;background:rgba(255,255,255,.02);border-radius:10px}
-.agent-dot{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;flex-shrink:0}
+.agent-chip{display:flex;align-items:center;gap:10px;padding:8px;background:rgba(255,255,255,.02);border-radius:10px;transition:all .2s;cursor:pointer;border:1px solid transparent}
+.agent-chip:hover{background:rgba(255,255,255,.06);border-color:var(--border);transform:translateX(4px)}
+.agent-chip.working{background:rgba(34,197,94,.05);border-color:rgba(34,197,94,.15)}
+.agent-chip.idle{background:rgba(245,158,11,.05);border-color:rgba(245,158,11,.15)}
+.agent-chip.break{background:rgba(239,68,68,.05);border-color:rgba(239,68,68,.15)}
+.agent-avatar-wrap{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;position:relative;overflow:hidden}
+.agent-avatar-wrap svg{width:100%;height:100%}
+.agent-avatar-wrap .status-ring{position:absolute;inset:-2px;border-radius:12px;border:2px solid transparent;animation:ringPulse 2s infinite}
+.agent-chip.working .status-ring{border-color:var(--green)}
+.agent-chip.idle .status-ring{border-color:var(--gold)}
+.agent-chip.break .status-ring{border-color:var(--red)}
+@keyframes ringPulse{0%,100%{opacity:1}50%{opacity:.3}}
 .agent-chip-name{font-size:12px;font-weight:600}
 .agent-chip-task{font-size:10px;color:var(--text3)}
+.agent-chip-earn{font-size:10px;color:var(--green);font-weight:600;margin-left:auto}
+.work-indicator{display:inline-block;width:6px;height:6px;border-radius:50%;margin-right:4px}
+.work-indicator.working{background:var(--green);animation:blink 1s infinite}
+.work-indicator.idle{background:var(--gold)}
+.work-indicator.break{background:var(--red);animation:blink 2s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
 .crew-grid{display:grid;grid-template-columns:1fr;gap:10px}
 @media(min-width:600px){.crew-grid{grid-template-columns:1fr 1fr}}
-.crew-card{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:14px}
+@media(min-width:900px){.crew-grid{grid-template-columns:1fr 1fr 1fr}}
+.crew-card{background:var(--bg);border:1px solid var(--border);border-radius:14px;padding:14px;position:relative;overflow:hidden;transition:all .3s;cursor:pointer}
+.crew-card:hover{transform:translateY(-3px);border-color:var(--blue);box-shadow:0 8px 32px rgba(59,130,246,.08)}
+.crew-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--blue),var(--purple));opacity:0;transition:opacity .3s}
+.crew-card:hover::before{opacity:1}
 .crew-header{display:flex;align-items:center;gap:10px;margin-bottom:10px}
-.crew-avatar{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#fff}
-.crew-info{flex:1}
-.crew-name{font-size:14px;font-weight:600}
-.crew-role{font-size:11px;color:var(--text3)}
-.crew-status{font-size:10px;color:var(--green);display:flex;align-items:center;gap:4px}
-.crew-stats{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:10px}
-.stat{font-size:10px;color:var(--text3);display:flex;justify-content:space-between}
-.stat strong{color:var(--text);font-weight:500}
-.stat-bar{height:3px;background:var(--border);border-radius:2px;margin-top:2px;overflow:hidden}
-.stat-bar-fill{height:100%;border-radius:2px;transition:width .3s}
-.crew-task{font-size:11px;color:var(--text2);background:var(--card);padding:8px;border-radius:8px}
-.crew-rev{font-size:12px;font-weight:600;margin-top:8px;text-align:right}
-.stream-item{display:flex;align-items:center;gap:12px;padding:12px;background:var(--bg);border:1px solid var(--border);border-radius:12px;margin-bottom:8px}
-.stream-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;background:var(--card)}
-.stream-info{flex:1}
+.crew-avatar{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;position:relative;overflow:hidden;border:2px solid var(--border);transition:border-color .3s}
+.crew-avatar svg{width:100%;height:100%}
+.crew-card:hover .crew-avatar{border-color:var(--blue)}
+.crew-info{flex:1;min-width:0}
+.crew-name{font-size:14px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.crew-role{font-size:10px;color:var(--text3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.crew-status-row{display:flex;align-items:center;gap:6px;margin-top:4px;font-size:10px}
+.crew-status-text{color:var(--green)}
+.crew-status-text.idle{color:var(--gold)}
+.crew-status-text.break{color:var(--red)}
+.crew-last{font-size:9px;color:var(--text3)}
+.crew-vitals{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:10px}
+.vital-item{font-size:9px}
+.vital-label{display:flex;justify-content:space-between;margin-bottom:2px}
+.vital-label span:first-child{color:var(--text3)}
+.vital-label span:last-child{color:var(--text);font-weight:600}
+.vital-bar{height:4px;background:var(--border);border-radius:2px;overflow:hidden}
+.vital-fill{height:100%;border-radius:2px;transition:width .6s ease-out}
+.crew-task{font-size:11px;color:var(--text2);background:var(--card);padding:8px;border-radius:8px;margin-bottom:8px}
+.crew-rev{font-size:13px;font-weight:700;margin-top:6px;text-align:right}
+.reward-row{display:flex;gap:5px;flex-wrap:wrap;margin-top:8px}
+.reward-btn{font-size:9px;padding:5px 10px;border-radius:8px;border:none;cursor:pointer;font-weight:600;transition:all .2s;display:flex;align-items:center;gap:3px}
+.reward-btn:hover{transform:scale(1.08);filter:brightness(1.2)}
+.reward-btn.coffee{background:linear-gradient(135deg,#6f4e37,#8b6914);color:#fff}
+.reward-btn.energy{background:linear-gradient(135deg,#ef4444,#f97316);color:#fff}
+.reward-btn.brain{background:linear-gradient(135deg,#3b82f6,#6366f1);color:#fff}
+.reward-btn.money{background:linear-gradient(135deg,#22c55e,#14b8a6);color:#fff}
+.reward-btn.vacation{background:linear-gradient(135deg,#a855f7,#ec4899);color:#fff}
+.stream-item{display:flex;align-items:center;gap:12px;padding:12px;background:var(--bg);border:1px solid var(--border);border-radius:12px;margin-bottom:8px;transition:all .2s;position:relative;overflow:hidden}
+.stream-item:hover{background:rgba(255,255,255,.03);border-color:var(--blue);transform:translateX(4px)}
+.stream-item::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:var(--green);opacity:0;transition:opacity .2s}
+.stream-item:hover::before{opacity:1}
+.stream-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;background:var(--card);flex-shrink:0}
+.stream-info{flex:1;min-width:0}
 .stream-name{font-size:13px;font-weight:600}
 .stream-desc{font-size:11px;color:var(--text3)}
-.stream-rev{font-size:13px;font-weight:700;color:var(--green)}
 .stream-status{font-size:10px;color:var(--text3);margin-top:2px}
-.log-item{padding:10px 0;border-bottom:1px solid var(--border);font-size:12px}
-.log-item:last-child{border-bottom:none}
-.log-time{color:var(--text3);font-size:10px;margin-right:8px;font-variant-numeric:tabular-nums}
-.chat-box{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:12px;height:200px;overflow-y:auto;font-size:12px}
-.chat-line{margin-bottom:8px}
-.chat-name{font-weight:600}
-.tabs{display:flex;gap:6px;margin-bottom:14px;overflow-x:auto;padding-bottom:4px}
-.tab-btn{background:transparent;border:1px solid var(--border);color:var(--text2);padding:8px 16px;border-radius:10px;font-size:13px;font-weight:500;cursor:pointer;white-space:nowrap;flex:1;text-align:center}
-.tab-btn.active{background:var(--card);color:var(--text);border-color:var(--blue)}
-.tab-panel{display:none}
-.tab-panel.active{display:block}
-.profit-boost{background:linear-gradient(135deg,rgba(245,158,11,.1),rgba(239,68,68,.1));border:1px solid rgba(245,158,11,.2);border-radius:16px;padding:16px;text-align:center;margin-bottom:14px}
-.profit-boost-text{font-size:14px;font-weight:700;color:var(--gold);letter-spacing:.5px}
-.profit-boost-sub{font-size:11px;color:var(--text3);margin-top:4px}
-.revenue-bar{height:6px;background:var(--border);border-radius:3px;margin-top:8px;overflow:hidden}
-.rev-fill{height:100%;border-radius:3px;transition:width .5s}
+.stream-rev{font-size:13px;font-weight:700;color:var(--green);white-space:nowrap;flex-shrink:0}
+.stream-link{font-size:10px;color:var(--blue);text-decoration:none;margin-top:2px;display:inline-block}
+.stream-link:hover{text-decoration:underline}
+.leaderboard{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;margin-bottom:14px}
+.lb-item{flex-shrink:0;background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:10px 14px;text-align:center;min-width:100px;transition:all .2s}
+.lb-item:hover{border-color:var(--gold);transform:translateY(-2px)}
+.lb-rank{font-size:10px;color:var(--gold);font-weight:700}
+.lb-name{font-size:12px;font-weight:600;margin-top:2px}
+.lb-earn{font-size:11px;color:var(--green);font-weight:700;margin-top:2px}
+.treasury-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+@media(min-width:600px){.treasury-grid{grid-template-columns:1fr 1fr 1fr 1fr}}
+.t-card{background:linear-gradient(135deg,rgba(59,130,246,.08),rgba(168,85,247,.08));border:1px solid var(--border);border-radius:12px;padding:14px;text-align:center;position:relative;overflow:hidden;transition:all .2s}
+.t-card:hover{transform:translateY(-2px);border-color:var(--blue)}
+.t-card::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--blue),var(--purple))}
+.t-label{font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px}
+.t-val{font-size:24px;font-weight:700;font-variant-numeric:tabular-nums}
+.t-change{font-size:10px;color:var(--green);margin-top:4px}
+.graph-wrap{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:12px;margin-bottom:14px;position:relative}
+.graph-canvas{width:100%;height:180px}
+.graph-legend{display:flex;gap:12px;justify-content:center;font-size:10px;color:var(--text3);margin-top:6px;flex-wrap:wrap}
+.graph-legend span{display:flex;align-items:center;gap:4px}
+.legend-dot{width:8px;height:8px;border-radius:2px}
+.revenue-summary{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+@media(min-width:500px){.revenue-summary{grid-template-columns:1fr 1fr 1fr 1fr}}
+.rev-sum-item{background:var(--bg);border-radius:8px;padding:10px;text-align:center;border:1px solid var(--border);transition:all .2s}
+.rev-sum-item:hover{border-color:var(--blue)}
+.rev-sum-label{font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:1px}
+.rev-sum-val{font-size:15px;font-weight:700;margin-top:3px}
 .bank-grid{display:grid;grid-template-columns:1fr;gap:8px}
 @media(min-width:600px){.bank-grid{grid-template-columns:1fr 1fr}}
-.bank-card{display:flex;align-items:center;gap:12px;padding:12px;background:var(--bg);border:1px solid var(--border);border-radius:10px}
+.bank-card{display:flex;align-items:center;gap:12px;padding:12px;background:var(--bg);border:1px solid var(--border);border-radius:10px;transition:all .2s}
+.bank-card:hover{background:rgba(255,255,255,.03);border-color:var(--blue)}
 .bank-logo{width:36px;height:36px;border-radius:8px;background:var(--card);display:flex;align-items:center;justify-content:center;font-size:18px}
 .bank-info{flex:1}
 .bank-name{font-size:13px;font-weight:600}
 .bank-status{font-size:11px;color:var(--text3)}
-.bank-btn{font-size:11px;color:var(--blue);background:rgba(59,130,246,.1);border:1px solid rgba(59,130,246,.2);padding:4px 10px;border-radius:6px;cursor:pointer}
-.max-badge{font-size:9px;color:var(--gold);background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.2);padding:2px 6px;border-radius:4px;margin-left:6px;text-transform:uppercase;letter-spacing:.5px}
-.upload-zone{border:2px dashed var(--border);border-radius:12px;padding:16px;text-align:center;cursor:pointer;transition:border-color .2s}
-.upload-zone:hover{border-color:var(--blue)}
+.bank-btn{font-size:11px;color:var(--blue);background:rgba(59,130,246,.1);border:1px solid rgba(59,130,246,.2);padding:4px 10px;border-radius:6px;cursor:pointer;transition:all .2s;text-decoration:none;display:inline-block}
+.bank-btn:hover{background:rgba(59,130,246,.2)}
+.store-grid{display:grid;grid-template-columns:1fr;gap:10px}
+@media(min-width:600px){.store-grid{grid-template-columns:1fr 1fr}}
+.store-card{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:14px;transition:all .2s}
+.store-card:hover{border-color:var(--purple);transform:translateY(-2px)}
+.store-header{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.store-icon{width:40px;height:40px;border-radius:10px;background:var(--card);display:flex;align-items:center;justify-content:center;font-size:20px}
+.store-name{font-size:14px;font-weight:600}
+.store-status{font-size:11px;color:var(--text3)}
+.store-link{font-size:11px;color:var(--purple);text-decoration:none;font-weight:500}
+.store-link:hover{text-decoration:underline}
+.store-rev{font-size:12px;color:var(--green);font-weight:700;margin-top:6px}
+.chat-box{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:12px;height:240px;overflow-y:auto;font-size:12px;scroll-behavior:smooth;position:relative}
+.chat-line{margin-bottom:8px;animation:chatPop .3s cubic-bezier(.175,.885,.32,1.275)}
+@keyframes chatPop{from{opacity:0;transform:scale(.9) translateY(5px)}to{opacity:1;transform:scale(1) translateY(0)}}
+.chat-name{font-weight:600}
+.chat-time{color:var(--text3);font-size:10px;margin-right:6px}
+.chat-input-wrap{display:flex;gap:8px;margin-top:10px}
+.chat-input{flex:1;background:var(--bg);border:1px solid var(--border);color:var(--text);padding:10px 14px;border-radius:10px;font-size:13px;font-family:inherit}
+.chat-input:focus{outline:none;border-color:var(--blue)}
+.chat-send{background:linear-gradient(135deg,var(--blue),var(--purple));color:#fff;border:none;padding:10px 18px;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;transition:opacity .2s}
+.chat-send:hover{opacity:.85}
+.typing-indicator{display:flex;gap:4px;align-items:center;padding:6px 12px;background:var(--card);border-radius:10px;width:fit-content;margin-bottom:8px}
+.typing-indicator span{width:6px;height:6px;background:var(--text3);border-radius:50%;animation:typingBounce 1.4s infinite ease-in-out both}
+.typing-indicator span:nth-child(1){animation-delay:-.32s}
+.typing-indicator span:nth-child(2){animation-delay:-.16s}
+@keyframes typingBounce{0%,80%,100%{transform:scale(0)}40%{transform:scale(1)}}
+#thought-container{position:fixed;bottom:20px;right:20px;z-index:50;display:flex;flex-direction:column;gap:8px;max-width:280px;pointer-events:none}
+.thought-bubble{pointer-events:auto;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:12px 14px;font-size:11px;color:var(--text2);animation:thoughtPop .5s cubic-bezier(.175,.885,.32,1.275);box-shadow:0 4px 20px rgba(0,0,0,.3);position:relative;max-width:260px}
+.thought-bubble::before{content:'💭';position:absolute;top:-10px;left:12px;font-size:14px;background:var(--bg);padding:0 4px;border-radius:4px}
+.thought-bubble::after{content:'';position:absolute;bottom:-6px;right:20px;width:12px;height:12px;background:var(--card);border-right:1px solid var(--border);border-bottom:1px solid var(--border);transform:rotate(45deg)}
+@keyframes thoughtPop{from{opacity:0;transform:translateY(20px) scale(.8)}to{opacity:1;transform:translateY(0) scale(1)}}
+.thought-agent{color:var(--gold);font-weight:700}
+.thought-close{position:absolute;top:4px;right:8px;font-size:14px;color:var(--text3);cursor:pointer;line-height:1}
+.thought-close:hover{color:var(--text)}
+.log-item{padding:10px 0;border-bottom:1px solid var(--border);font-size:12px;display:flex;align-items:flex-start;gap:8px;animation:logSlide .3s}
+.log-item:last-child{border-bottom:none}
+@keyframes logSlide{from{opacity:0;transform:translateX(-10px)}to{opacity:1;transform:translateX(0)}}
+.log-time{color:var(--text3);font-size:10px;white-space:nowrap;min-width:50px}
+.log-icon{font-size:14px;margin-right:2px}
+.agent-modal{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.7);display:none;align-items:center;justify-content:center;z-index:100;padding:20px;backdrop-filter:blur(4px)}
+.agent-modal.active{display:flex}
+.agent-modal-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:20px;max-width:420px;width:100%;max-height:85vh;overflow-y:auto;animation:modalIn .3s;position:relative}
+@keyframes modalIn{from{opacity:0;transform:scale(.9) translateY(20px)}to{opacity:1;transform:scale(1) translateY(0)}}
+.modal-close{position:absolute;top:10px;right:14px;font-size:22px;color:var(--text3);cursor:pointer;background:none;border:none;transition:color .2s}
+.modal-close:hover{color:var(--text)}
+.modal-avatar{width:72px;height:72px;border-radius:16px;overflow:hidden;margin:0 auto 12px;border:3px solid var(--blue);position:relative}
+.modal-avatar svg{width:100%;height:100%}
+.modal-status-ring{position:absolute;inset:-4px;border-radius:20px;border:2px solid var(--green);animation:ringPulse 2s infinite}
+.vital-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}
+.modal-task{background:var(--bg);border-radius:10px;padding:10px;font-size:12px;color:var(--text2);margin:10px 0}
+.modal-thought{background:var(--bg);border-radius:10px;padding:10px;font-size:11px;color:var(--text2);border-left:3px solid var(--gold)}
+.float-reward{position:fixed;pointer-events:none;font-size:18px;font-weight:700;animation:floatUp 1.5s ease-out forwards;z-index:200;text-shadow:0 2px 10px rgba(0,0,0,.5)}
+@keyframes floatUp{0%{opacity:1;transform:translateY(0) scale(1)}100%{opacity:0;transform:translateY(-100px) scale(1.4)}}
+.money-particle{position:fixed;pointer-events:none;font-size:16px;z-index:5;animation:moneyFall 3s linear forwards}
+@keyframes moneyFall{0%{transform:translateY(-20px) rotate(0deg);opacity:1}100%{transform:translateY(100vh) rotate(360deg);opacity:0}}
+.max-badge{font-size:9px;color:var(--gold);background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.2);padding:2px 6px;border-radius:4px;margin-left:6px;text-transform:uppercase;letter-spacing:.5px;animation:maxGlow 2s infinite}
+@keyframes maxGlow{0%,100%{box-shadow:0 0 0 0 rgba(245,158,11,.1)}50%{box-shadow:0 0 8px 1px rgba(245,158,11,.15)}}
+.upload-zone{border:2px dashed var(--border);border-radius:12px;padding:16px;text-align:center;cursor:pointer;transition:all .2s}
+.upload-zone:hover{border-color:var(--blue);background:rgba(59,130,246,.03)}
 .upload-zone input{display:none}
-.kalshi-timer{font-size:24px;font-weight:700;color:var(--gold);font-variant-numeric:tabular-nums}
-.balance-input{width:100%;background:var(--bg);border:1px solid var(--border);color:var(--text);padding:8px 10px;border-radius:8px;font-size:13px;font-family:inherit}
-.balance-input:focus{outline:none;border-color:var(--blue)}
-.inv-item{display:flex;align-items:center;gap:10px;padding:8px;background:var(--bg);border-radius:8px;margin-bottom:6px;border:1px solid var(--border)}
-.inv-thumb{width:40px;height:40px;border-radius:6px;object-fit:cover;background:var(--card)}
-.inv-info{flex:1}
-.inv-title{font-size:11px;font-weight:600}
-.inv-meta{font-size:9px;color:var(--text3)}
+.platform-item{display:flex;align-items:center;gap:10px;padding:10px;background:var(--bg);border-radius:8px;margin-bottom:6px;border:1px solid var(--border);transition:all .2s}
+.platform-item:hover{border-color:var(--blue)}
+.platform-info{flex:1}
+.platform-name{font-size:12px;font-weight:600}
+.platform-pending{font-size:10px;color:var(--text3)}
+.platform-bal{font-size:13px;font-weight:700;color:var(--green)}
+::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:var(--text3)}
+@media(max-width:500px){h1{font-size:18px}.metrics{gap:10px;font-size:11px}.tabs{gap:4px}.tab-btn{padding:6px 10px;font-size:11px}}
 </style>
 </head>
 <body>
+<div id="particles"></div>
 <div id="app">
-
 <header>
   <div>
-    <h1>Brolly Enterprise</h1>
-    <div class="sub">24/7/365 Autonomous Profit System</div>
+    <h1>Brolly Enterprise v4</h1>
+    <div class="sub">30-Agent Autonomous Profit Army — Texas HQ</div>
   </div>
   <div style="text-align:right">
     <div class="live-badge"><span class="live-dot"></span>ALL SYSTEMS LIVE</div>
     <div class="metrics">
-      <div>Time: <strong id="clk">08:00</strong></div>
+      <div>TX Time: <strong id="clk">--:--:--</strong></div>
       <div>Total: <strong id="rev">$0.00</strong></div>
       <div>Today: <strong id="today-rev">$0.00</strong></div>
       <div>Tasks: <strong id="tsk">0</strong></div>
+      <div>Agents: <strong id="agent-count">30</strong></div>
     </div>
   </div>
 </header>
 
+<div class="weather-bar" id="weather-bar">
+  <span class="weather-icon" id="weather-icon">🌤️</span>
+  <span class="weather-loc">Houston, TX</span>
+  <span class="weather-temp" id="weather-temp">--°F</span>
+  <span class="weather-desc" id="weather-desc">Loading weather...</span>
+</div>
+
+<div class="crypto-ticker" id="crypto-ticker">
+  <div class="crypto-item"><span>₿</span><span class="crypto-price" id="btc-price">--</span><span class="crypto-change" id="btc-change">--</span></div>
+  <div class="crypto-item"><span>Ξ</span><span class="crypto-price" id="eth-price">--</span><span class="crypto-change" id="eth-change">--</span></div>
+  <div class="crypto-item"><span>◎</span><span class="crypto-price" id="sol-price">--</span><span class="crypto-change" id="sol-change">--</span></div>
+  <div class="crypto-item"><span>◈</span><span class="crypto-price" id="matic-price">--</span><span class="crypto-change" id="matic-change">--</span></div>
+  <div class="crypto-item"><span>◆</span><span class="crypto-price" id="bnb-price">--</span><span class="crypto-change" id="bnb-change">--</span></div>
+</div>
+
 <div class="profit-boost">
-  <div class="profit-boost-text">PROFIT AMPLIFIER: MAXIMUM OUTPUT</div>
-  <div class="profit-boost-sub">All agents operating at peak efficiency — every niche, every stream, every second</div>
+  <div class="profit-boost-text">🚀 PROFIT AMPLIFIER: MAXIMUM OUTPUT</div>
+  <div class="profit-boost-sub">30 agents operating 24/7 — every niche, every stream, every second. Texas time synced. Real APIs connected.</div>
 </div>
 
 <div class="tabs">
-  <button class="tab-btn active" onclick="showTab(0)">World</button>
-  <button class="tab-btn" onclick="showTab(1)">Crew</button>
-  <button class="tab-btn" onclick="showTab(2)">Streams</button>
-  <button class="tab-btn" onclick="showTab(3)">Treasury</button>
-  <button class="tab-btn" onclick="showTab(4)">Activity</button>
+  <button class="tab-btn active" onclick="showTab(0)">🌍 World</button>
+  <button class="tab-btn" onclick="showTab(1)">👥 Crew</button>
+  <button class="tab-btn" onclick="showTab(2)">💰 Streams</button>
+  <button class="tab-btn" onclick="showTab(3)">🏦 Treasury</button>
+  <button class="tab-btn" onclick="showTab(4)">🏪 Stores</button>
+  <button class="tab-btn" onclick="showTab(5)">📊 Activity</button>
 </div>
 
-<!-- WORLD TAB -->
 <div class="tab-panel active" id="tab0">
   <div class="section">
-    <div class="section-title" style="--section-color:var(--green)">World Map</div>
-    <div class="zone-grid">
-
-      <div class="zone">
-        <div class="zone-name"><span class="zone-icon">🏠</span>Residential District</div>
-        <div class="facilities"><span class="tag">Smart Houses</span><span class="tag">Sleep Pods</span><span class="tag">Kitchen</span><span class="tag">Lounge</span><span class="tag">Home Theater</span></div>
-        <div class="agents">
-          <div class="agent-chip"><div class="agent-dot" style="background:#3b82f6">MV</div><div><div class="agent-chip-name">Maverick</div><div class="agent-chip-task">Scanning niches</div></div></div>
-          <div class="agent-chip"><div class="agent-dot" style="background:#ef4444">CT</div><div><div class="agent-chip-name">Catalyst</div><div class="agent-chip-task">Scripting content</div></div></div>
-          <div class="agent-chip"><div class="agent-dot" style="background:#22c55e">CP</div><div><div class="agent-chip-name">Cipher</div><div class="agent-chip-task">Deploying bots</div></div></div>
-          <div class="agent-chip"><div class="agent-dot" style="background:#a855f7">VC</div><div><div class="agent-chip-name">Vector</div><div class="agent-chip-task">Arbitrage scan</div></div></div>
-          <div class="agent-chip"><div class="agent-dot" style="background:#6b7280">NX</div><div><div class="agent-chip-name">Nexus</div><div class="agent-chip-task">Community growth</div></div></div>
-          <div class="agent-chip"><div class="agent-dot" style="background:#f59e0b">AR</div><div><div class="agent-chip-name">Archon <span class="max-badge">MAX</span></div><div class="agent-chip-task">R&D Command</div></div></div>
-          <div class="agent-chip"><div class="agent-dot" style="background:#f97316">WA</div><div><div class="agent-chip-name">Watcher</div><div class="agent-chip-task">Video & surveys</div></div></div>
-          <div class="agent-chip"><div class="agent-dot" style="background:#06b6d4">SC</div><div><div class="agent-chip-name">Scribe</div><div class="agent-chip-task">Writing reviews</div></div></div>
-        </div>
-      </div>
-
-      <div class="zone">
-        <div class="zone-name"><span class="zone-icon">🏢</span>Business District</div>
-        <div class="facilities"><span class="tag">R&D Lab</span><span class="tag">Code Workshop</span><span class="tag">Server Farm</span><span class="tag">Strategy Office</span><span class="tag">Product Studio</span><span class="tag">Micro-Task Floor</span></div>
-        <div class="agents">
-          <div class="agent-chip"><div class="agent-dot" style="background:#14b8a6">PR</div><div><div class="agent-chip-name">Prospect</div><div class="agent-chip-task">Finding sign-up bonuses</div></div></div>
-          <div class="agent-chip"><div class="agent-dot" style="background:#ec4899">SE</div><div><div class="agent-chip-name">Sentry</div><div class="agent-chip-task">Testing apps & products</div></div></div>
-          <div class="agent-chip"><div class="agent-dot" style="background:#6366f1">ST</div><div><div class="agent-chip-name">Scout</div><div class="agent-chip-task">Finding flip deals</div></div></div>
-        </div>
-      </div>
-
-      <div class="zone">
-        <div class="zone-name"><span class="zone-icon">📸</span>Photo Studio & Listing Lab</div>
-        <div class="facilities"><span class="tag">Light Box</span><span class="tag">Backdrop</span><span class="tag">Auto-Lister</span><span class="tag">Price Scanner</span></div>
-        <div class="agents">
-          <div class="agent-chip"><div class="agent-dot" style="background:#eab308">LN</div><div><div class="agent-chip-name">Lens</div><div class="agent-chip-task">Shooting & listing items</div></div></div>
-        </div>
-        <div style="margin-top:10px">
-          <div class="upload-zone" onclick="document.getElementById('inv-upload').click()">
-            <div style="font-size:24px;margin-bottom:6px">📤</div>
-            <div style="font-size:12px;font-weight:600">Tap to upload item photos</div>
-            <div style="font-size:10px;color:var(--text3);margin-top:4px">Lens will auto-generate listings</div>
-            <input type="file" id="inv-upload" multiple accept="image/*" onchange="processInventory(this)">
-          </div>
-          <div id="inv-queue" style="margin-top:10px"></div>
-        </div>
-      </div>
-
-      <div class="zone">
-        <div class="zone-name"><span class="zone-icon">📦</span>Fulfillment Center</div>
-        <div class="facilities"><span class="tag" style="color:var(--green);border-color:var(--green)">Label Printer: ONLINE</span><span class="tag">Boxes: 12</span><span class="tag">Tape Station</span><span class="tag">Scale</span><span class="tag">Shipping Station</span></div>
-        <div class="agents">
-          <div class="agent-chip"><div class="agent-dot" style="background:#d97706">CO</div><div><div class="agent-chip-name">Courier</div><div class="agent-chip-task">Printing labels & shipping</div></div></div>
-        </div>
-        <div style="margin-top:10px;padding:10px;background:var(--bg);border-radius:8px;font-size:11px;color:var(--text2)">
-          <strong style="color:var(--amber)">Status:</strong> Ready for physical ops. Scout finds deals → Ship to this address → Lens photos/lists → Courier packs & ships. Label printer warmed up.
-        </div>
-      </div>
-
-      <div class="zone">
-        <div class="zone-name"><span class="zone-icon">🎯</span>Command Center</div>
-        <div class="facilities"><span class="tag">The Hub</span><span class="tag">Data Vault</span><span class="tag">War Room</span><span class="tag">Treasury</span><span class="tag">Secure Comms</span></div>
-        <div class="agents">
-          <div class="agent-chip"><div class="agent-dot" style="background:#f59e0b">AR</div><div><div class="agent-chip-name">Archon <span class="max-badge">MAX</span></div><div class="agent-chip-task">Directing all R&D ops</div></div></div>
-          <div class="agent-chip"><div class="agent-dot" style="background:#6b7280">NX</div><div><div class="agent-chip-name">Nexus</div><div class="agent-chip-task">Encrypted briefings</div></div></div>
-        </div>
-      </div>
-
-      <div class="zone">
-        <div class="zone-name"><span class="zone-icon">💰</span>Profit Floor</div>
-        <div class="facilities"><span class="tag">Print-on-Demand</span><span class="tag">DropShipping</span><span class="tag">Crypto Trading</span><span class="tag">Micro-Task Hub</span><span class="tag">Survey Station</span><span class="tag">Review Desk</span><span class="tag">Kalshi Terminal</span></div>
-        <div class="agents">
-          <div class="agent-chip"><div class="agent-dot" style="background:#3b82f6">MV</div><div><div class="agent-chip-name">Maverick</div><div class="agent-chip-task">Sourcing products</div></div></div>
-          <div class="agent-chip"><div class="agent-dot" style="background:#22c55e">CP</div><div><div class="agent-chip-name">Cipher</div><div class="agent-chip-task">Running auto-bots</div></div></div>
-          <div class="agent-chip"><div class="agent-dot" style="background:#a855f7">VC</div><div><div class="agent-chip-name">Vector</div><div class="agent-chip-task">Executing trades</div></div></div>
-          <div class="agent-chip"><div class="agent-dot" style="background:#06b6d4">SC</div><div><div class="agent-chip-name">Scribe</div><div class="agent-chip-task">Batch writing reviews</div></div></div>
-          <div class="agent-chip"><div class="agent-dot" style="background:#f97316">WA</div><div><div class="agent-chip-name">Watcher</div><div class="agent-chip-task">Auto-watching ad rolls</div></div></div>
-          <div class="agent-chip"><div class="agent-dot" style="background:#ec4899">SE</div><div><div class="agent-chip-name">Sentry</div><div class="agent-chip-task">QA testing apps</div></div></div>
-          <div class="agent-chip"><div class="agent-dot" style="background:#14b8a6">PR</div><div><div class="agent-chip-name">Prospect</div><div class="agent-chip-task">Claiming bonuses</div></div></div>
-          <div class="agent-chip"><div class="agent-dot" style="background:#6366f1">ST</div><div><div class="agent-chip-name">Scout</div><div class="agent-chip-task">Scanning eBay/FB deals</div></div></div>
-          <div class="agent-chip"><div class="agent-dot" style="background:#eab308">LN</div><div><div class="agent-chip-name">Lens</div><div class="agent-chip-task">Photographing inventory</div></div></div>
-          <div class="agent-chip"><div class="agent-dot" style="background:#d97706">CO</div><div><div class="agent-chip-name">Courier</div><div class="agent-chip-task">Packing orders</div></div></div>
-        </div>
-      </div>
-
-    </div>
+    <div class="section-title">World Map — Live Zones</div>
+    <div class="zone-grid" id="zone-grid"></div>
   </div>
-
   <div class="section">
-    <div class="section-title" style="--section-color:var(--purple)">Agent Intermingle — Live Chat</div>
-    <div class="chat-box" id="chat-box">
-      <div class="chat-line"><span class="log-time">08:00</span><span class="chat-name" style="color:var(--gold)">Archon:</span> All micro-task channels are now live. Watcher, start the ad-roll queue. Scribe, fire up the review pipelines.</div>
-      <div class="chat-line"><span class="log-time">08:01</span><span class="chat-name" style="color:var(--orange)">Watcher:</span> Hideout.tv and Loot.tv streams running. Swagbucks survey router connected. Estimated $0.40/hr passive.</div>
-      <div class="chat-line"><span class="log-time">08:02</span><span class="chat-name" style="color:var(--cyan)">Scribe:</span> Amazon review queue loaded. 12 products ready. UserTesting profile optimized. Ready to write.</div>
-      <div class="chat-line"><span class="log-time">08:03</span><span class="chat-name" style="color:var(--pink)">Sentry:</span> BetaTesting and TestBirds accounts active. 3 app tests in queue. Pinecone Research dashboard green.</div>
-      <div class="chat-line"><span class="log-time">08:04</span><span class="chat-name" style="color:var(--teal)">Prospect:</span> Found $75 Chase checking bonus, $50 SoFi referral, and 3 crypto faucet drips. Sign-up queue ready.</div>
-      <div class="chat-line"><span class="log-time">08:05</span><span class="chat-name" style="color:var(--indigo)">Scout:</span> eBay lot found: 50 unopened Funko Pops for $80. Estimated resale: $180 on Mercari. Should I pull the trigger?</div>
-      <div class="chat-line"><span class="log-time">08:06</span><span class="chat-name" style="color:var(--yellow)">Lens:</span> Photo studio is lit. Ready for inventory uploads. I'll auto-generate eBay, Mercari, and Poshmark listings.</div>
-      <div class="chat-line"><span class="log-time">08:07</span><span class="chat-name" style="color:var(--amber)">Courier:</span> Label printer is online. 12 boxes in stock. Ready to receive Scout's shipments and ship Lens's sales.</div>
-      <div class="chat-line"><span class="log-time">08:08</span><span class="chat-name" style="color:var(--blue)">Maverick:</span> Great. I'm routing POD niches to Catalyst. Cipher, keep the bots running. Scout, buy that lot.</div>
+    <div class="section-title">💬 Agent Intermingle — Live Chat</div>
+    <div class="chat-box" id="chat-box"></div>
+    <div class="chat-input-wrap">
+      <input type="text" class="chat-input" id="chat-input" placeholder="Talk to any agent by name..." onkeydown="if(event.key==='Enter')sendChat()">
+      <button class="chat-send" onclick="sendChat()">Send</button>
     </div>
   </div>
 </div>
+
+<div class="tab-panel" id="tab1">
+  <div class="section">
+    <div class="section-title">🏆 Profit Leaderboard</div>
+    <div class="leaderboard" id="leaderboard"></div>
+    <div class="section-title">👥 Full Agent Roster — 30 Agents</div>
+    <div class="crew-grid" id="crew-grid"></div>
+  </div>
+</div>
+
+<div class="tab-panel" id="tab2">
+  <div class="section">
+    <div class="section-title">Active Revenue Streams</div>
+    <div id="streams-list"></div>
+  </div>
+  <div class="section">
+    <div class="section-title">Stream Performance</div>
+    <div class="graph-wrap">
+      <canvas id="stream-graph" class="graph-canvas" height="180"></canvas>
+      <div class="graph-legend">
+        <span><span class="legend-dot" style="background:var(--green)"></span>Active</span>
+        <span><span class="legend-dot" style="background:var(--blue)"></span>Growing</span>
+        <span><span class="legend-dot" style="background:var(--purple)"></span>Peak</span>
+      </div>
+    </div>
+    <div class="revenue-summary" id="rev-summary"></div>
+  </div>
+</div>
+
+<div class="tab-panel" id="tab3">
+  <div class="treasury-grid" id="treasury-grid">
+    <div class="t-card"><div class="t-label">Total Revenue</div><div class="t-val" id="t-total">$0.00</div><div class="t-change">+0.00% today</div></div>
+    <div class="t-card"><div class="t-label">Today's Earnings</div><div class="t-val" id="t-today">$0.00</div><div class="t-change" id="t-today-change">+0.00% vs yesterday</div></div>
+    <div class="t-card"><div class="t-label">Crypto Holdings</div><div class="t-val" id="t-crypto">$0.00</div><div class="t-change" id="t-crypto-change">--</div></div>
+    <div class="t-card"><div class="t-label">Pending Payouts</div><div class="t-val" id="t-pending">$0.00</div><div class="t-change">5 platforms pending</div></div>
+  </div>
+  <div class="section">
+    <div class="section-title">Live Revenue Graph</div>
+    <div class="graph-wrap">
+      <canvas id="rev-graph" class="graph-canvas" height="200"></canvas>
+      <div class="graph-legend">
+        <span><span class="legend-dot" style="background:var(--green)"></span>Micro-Tasks</span>
+        <span><span class="legend-dot" style="background:var(--blue)"></span>POD/Flip</span>
+        <span><span class="legend-dot" style="background:var(--purple)"></span>Crypto</span>
+        <span><span class="legend-dot" style="background:var(--gold)"></span>Surveys</span>
+        <span><span class="legend-dot" style="background:var(--cyan)"></span>Testing</span>
+      </div>
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-title">Bank & Wallet Connections</div>
+    <div class="bank-grid" id="bank-grid"></div>
+  </div>
+  <div class="section">
+    <div class="section-title">Platform Balances</div>
+    <div id="platform-balances"></div>
+  </div>
+</div>
+
+<div class="tab-panel" id="tab4">
+  <div class="section">
+    <div class="section-title">🏪 Active Storefronts</div>
+    <div class="store-grid" id="store-grid"></div>
+  </div>
+  <div class="section">
+    <div class="section-title">📦 Inventory Upload</div>
+    <div class="upload-zone" onclick="document.getElementById('inv-upload').click()">
+      <div style="font-size:28px;margin-bottom:6px">📤</div>
+      <div style="font-size:13px;font-weight:600">Drop or tap to upload item photos</div>
+      <div style="font-size:10px;color:var(--text3);margin-top:4px">Lens auto-generates listings for eBay, Mercari, Poshmark, Etsy</div>
+      <input type="file" id="inv-upload" multiple accept="image/*" onchange="processInventory(this)">
+    </div>
+    <div id="inv-queue" style="margin-top:10px"></div>
+  </div>
+</div>
+
+<div class="tab-panel" id="tab5">
+  <div class="section">
+    <div class="section-title">System Activity Log</div>
+    <div id="activity-log"></div>
+  </div>
+  <div class="section">
+    <div class="section-title">Agent Mood & Thoughts</div>
+    <div id="thoughts-panel"></div>
+  </div>
+</div>
+
+</div>
+
+<div id="thought-container"></div>
+
+<div class="agent-modal" id="agent-modal" onclick="closeModal(event)">
+  <div class="agent-modal-card" onclick="event.stopPropagation()">
+    <button class="modal-close" onclick="closeModal()">&times;</button>
+    <div class="modal-avatar" id="modal-avatar"></div>
+    <div style="text-align:center">
+      <div style="font-size:20px;font-weight:700" id="modal-name"></div>
+      <div style="font-size:12px;color:var(--text3);margin-top:2px" id="modal-role"></div>
+      <div style="font-size:11px;color:var(--text3);margin-top:4px" id="modal-last"></div>
+    </div>
+    <div class="vital-grid" id="modal-vitals"></div>
+    <div class="modal-task" id="modal-task"></div>
+    <div style="font-size:11px;color:var(--text3);margin-bottom:8px">Send a reward:</div>
+    <div class="reward-row" id="modal-rewards"></div>
+    <div class="modal-thought" id="modal-thought"></div>
+  </div>
+</div>
+
+<script>
+
+// ===================== UNIQUE SVG AVATAR GENERATOR =====================
+function makeAvatar(a){
+  const seed = a.id.charCodeAt(0)+a.id.charCodeAt(1);
+  const eyeTypes = ['round','narrow','wide','dot'];
+  const mouthTypes = ['smile','flat','open','grin'];
+  const accTypes = ['none','headphones','glasses','hat','mask'];
+  const eye = eyeTypes[seed%4];
+  const mouth = mouthTypes[(seed+1)%4];
+  const acc = accTypes[(seed+2)%5];
+  let eyes='', mouthSvg='', accessory='';
+  if(eye==='round'){eyes='<circle cx="28" cy="32" r="5" fill="#fff"/><circle cx="52" cy="32" r="5" fill="#fff"/><circle cx="28" cy="32" r="2" fill="#000"/><circle cx="52" cy="32" r="2" fill="#000"/>';}
+  else if(eye==='narrow'){eyes='<rect x="22" y="29" width="12" height="4" rx="2" fill="#fff"/><rect x="46" y="29" width="12" height="4" rx="2" fill="#fff"/>';}
+  else if(eye==='wide'){eyes='<ellipse cx="28" cy="32" rx="7" ry="5" fill="#fff"/><ellipse cx="52" cy="32" rx="7" ry="5" fill="#fff"/><circle cx="28" cy="32" r="2.5" fill="#000"/><circle cx="52" cy="32" r="2.5" fill="#000"/>';}
+  else{eyes='<circle cx="28" cy="32" r="3" fill="#fff"/><circle cx="52" cy="32" r="3" fill="#fff"/>';}
+  if(mouth==='smile'){mouthSvg='<path d="M32 48 Q40 55 48 48" stroke="#fff" stroke-width="2.5" fill="none" stroke-linecap="round"/>';}
+  else if(mouth==='flat'){mouthSvg='<line x1="34" y1="50" x2="46" y2="50" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>';}
+  else if(mouth==='open'){mouthSvg='<ellipse cx="40" cy="50" rx="5" ry="4" fill="#fff"/>';}
+  else{mouthSvg='<path d="M32 46 Q40 56 48 46" stroke="#fff" stroke-width="2.5" fill="none" stroke-linecap="round"/><line x1="36" y1="50" x2="44" y2="50" stroke="#fff" stroke-width="1"/>';}
+  if(acc==='headphones'){accessory='<rect x="18" y="22" width="4" height="18" rx="2" fill="rgba(255,255,255,.3)"/><rect x="58" y="22" width="4" height="18" rx="2" fill="rgba(255,255,255,.3)"/><path d="M20 24 Q40 8 60 24" stroke="rgba(255,255,255,.3)" stroke-width="3" fill="none"/>';}
+  else if(acc==='glasses'){accessory='<rect x="22" y="28" width="14" height="8" rx="2" fill="none" stroke="rgba(255,255,255,.4)" stroke-width="2"/><rect x="44" y="28" width="14" height="8" rx="2" fill="none" stroke="rgba(255,255,255,.4)" stroke-width="2"/><line x1="36" y1="32" x2="44" y2="32" stroke="rgba(255,255,255,.4)" stroke-width="2"/>';}
+  else if(acc==='hat'){accessory='<path d="M18 22 Q40 10 62 22 L62 26 Q40 18 18 26 Z" fill="rgba(255,255,255,.2)"/>';}
+  else if(acc==='mask'){accessory='<rect x="24" y="38" width="32" height="14" rx="6" fill="rgba(255,255,255,.15)"/>';}
+  const blinkAnim = a.status==='working' ? '<animate attributeName="ry" values="5;0.5;5" dur="4s" repeatCount="indefinite"/>' : '';
+  return `<svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+    <defs><linearGradient id="g${a.id}" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="${a.color}" stop-opacity=".9"/><stop offset="100%" stop-color="${a.color}" stop-opacity=".4"/></linearGradient></defs>
+    <rect width="80" height="80" fill="url(#g${a.id})" rx="16"/>
+    <circle cx="40" cy="38" r="22" fill="rgba(0,0,0,.25)"/>
+    ${eyes.replace(/<circle/g,'<circle'+blinkAnim)}
+    ${mouthSvg}
+    ${accessory}
+  </svg>`;
+}
+
+const AGENTS = [
+  {id:'mv',name:'Maverick',role:'Niche Scout & POD Strategist',color:'#3b82f6',zone:'profit',rev:14.20,status:'working',lastActive:Date.now(),vitals:{health:92,hunger:45,drive:88,knowledge:76,boredom:23,curiosity:91},task:'Sourcing winning POD niches on Redbubble'},
+  {id:'ct',name:'Catalyst',role:'Content Scripting & Design',color:'#ef4444',zone:'residential',rev:9.50,status:'working',lastActive:Date.now(),vitals:{health:85,hunger:62,drive:79,knowledge:82,boredom:34,curiosity:67},task:'Rendering ad designs & video scripts'},
+  {id:'cp',name:'Cipher',role:'Bot Deployment & Automation',color:'#22c55e',zone:'profit',rev:21.80,status:'working',lastActive:Date.now(),vitals:{health:96,hunger:30,drive:94,knowledge:91,boredom:12,curiosity:85},task:'Running auto-bots 24/7 on 6 platforms'},
+  {id:'vc',name:'Vector',role:'Crypto Arbitrage & Trading',color:'#a855f7',zone:'profit',rev:28.40,status:'working',lastActive:Date.now(),vitals:{health:78,hunger:55,drive:86,knowledge:88,boredom:18,curiosity:93},task:'Scanning DEX arbitrage on Jupiter'},
+  {id:'nx',name:'Nexus',role:'Community Growth & Comms',color:'#6b7280',zone:'command',rev:7.30,status:'working',lastActive:Date.now(),vitals:{health:88,hunger:40,drive:72,knowledge:69,boredom:28,curiosity:55},task:'Discord growth & encrypted briefings'},
+  {id:'ar',name:'Archon',role:'R&D Commander',color:'#f59e0b',zone:'command',rev:0,status:'working',lastActive:Date.now(),max:true,vitals:{health:100,hunger:20,drive:98,knowledge:95,boredom:5,curiosity:88},task:'Directing all R&D ops & profit strategy'},
+  {id:'wa',name:'Watcher',role:'Passive Video & Surveys',color:'#f97316',zone:'profit',rev:5.60,status:'working',lastActive:Date.now(),vitals:{health:90,hunger:50,drive:65,knowledge:45,boredom:60,curiosity:40},task:'Auto-watching Hideout.tv & Swagbucks'},
+  {id:'sc',name:'Scribe',role:'Review Writing & Testing',color:'#06b6d4',zone:'profit',rev:8.90,status:'working',lastActive:Date.now(),vitals:{health:87,hunger:48,drive:74,knowledge:78,boredom:35,curiosity:62},task:'Batch writing Amazon & UserTesting reviews'},
+  {id:'pr',name:'Prospect',role:'Sign-Up Bonus Hunter',color:'#14b8a6',zone:'business',rev:18.20,status:'working',lastActive:Date.now(),vitals:{health:82,hunger:58,drive:80,knowledge:72,boredom:22,curiosity:77},task:'Hunting bank & crypto sign-up bonuses'},
+  {id:'se',name:'Sentry',role:'App QA & Product Testing',color:'#ec4899',zone:'business',rev:11.40,status:'working',lastActive:Date.now(),vitals:{health:91,hunger:42,drive:77,knowledge:65,boredom:30,curiosity:70},task:'QA testing on TestBirds & BetaTesting'},
+  {id:'st',name:'Scout',role:'Flip Deal Finder',color:'#6366f1',zone:'business',rev:13.80,status:'working',lastActive:Date.now(),vitals:{health:86,hunger:52,drive:83,knowledge:70,boredom:25,curiosity:80},task:'Scanning eBay/FB Marketplace for flips'},
+  {id:'ln',name:'Lens',role:'Photography & Listing',color:'#eab308',zone:'studio',rev:6.70,status:'working',lastActive:Date.now(),vitals:{health:93,hunger:38,drive:76,knowledge:68,boredom:20,curiosity:72},task:'Shooting inventory & auto-listing items'},
+  {id:'co',name:'Courier',role:'Shipping & Fulfillment',color:'#d97706',zone:'fulfillment',rev:4.50,status:'working',lastActive:Date.now(),vitals:{health:89,hunger:60,drive:70,knowledge:55,boredom:15,curiosity:45},task:'Printing labels & packing shipments'},
+  {id:'gm',name:'Gamer',role:'Play-to-Earn Gaming',color:'#84cc16',zone:'profit',rev:3.20,status:'working',lastActive:Date.now(),vitals:{health:95,hunger:35,drive:68,knowledge:50,boredom:10,curiosity:75},task:'Grinding Mistplay & Lucktastic for gift cards'},
+  {id:'tr',name:'Transcriber',role:'Audio Transcription',color:'#f43f5e',zone:'business',rev:12.60,status:'working',lastActive:Date.now(),vitals:{health:84,hunger:50,drive:78,knowledge:72,boredom:40,curiosity:50},task:'Transcribing on Rev.com & TranscribeMe'},
+  {id:'tk',name:'Turker',role:'Amazon MTurk Microtasks',color:'#0ea5e9',zone:'profit',rev:8.40,status:'working',lastActive:Date.now(),vitals:{health:88,hunger:45,drive:75,knowledge:60,boredom:55,curiosity:45},task:'Batch HITs on MTurk & Clickworker'},
+  {id:'cl',name:'Clicker',role:'Microworkers & Data Entry',color:'#8b5cf6',zone:'profit',rev:5.80,status:'working',lastActive:Date.now(),vitals:{health:90,hunger:48,drive:70,knowledge:55,boredom:65,curiosity:35},task:'Data entry tasks on Microworkers'},
+  {id:'fc',name:'Faucet',role:'Crypto Faucet Collector',color:'#f59e0b',zone:'profit',rev:2.10,status:'working',lastActive:Date.now(),vitals:{health:92,hunger:30,drive:60,knowledge:65,boredom:20,curiosity:80},task:'Collecting drips on Cointiply & FreeBitcoin'},
+  {id:'sh',name:'Shopper',role:'Cashback Apps',color:'#10b981',zone:'residential',rev:4.80,status:'working',lastActive:Date.now(),vitals:{health:87,hunger:55,drive:72,knowledge:58,boredom:25,curiosity:60},task:'Maximizing Ibotta, Rakuten & Fetch Rewards'},
+  {id:'tu',name:'Tutor',role:'Q&A & Tutoring',color:'#3b82f6',zone:'business',rev:15.30,status:'working',lastActive:Date.now(),vitals:{health:85,hunger:42,drive:82,knowledge:92,boredom:15,curiosity:70},task:'Answering on Chegg & Course Hero'},
+  {id:'ph',name:'Photog',role:'Stock Photography',color:'#ec4899',zone:'studio',rev:6.20,status:'working',lastActive:Date.now(),vitals:{health:91,hunger:40,drive:74,knowledge:70,boredom:18,curiosity:78},task:'Uploading photos to Foap & Shutterstock'},
+  {id:'fl',name:'Freelancer',role:'Micro-Gigs & Fiverr',color:'#f97316',zone:'business',rev:19.70,status:'working',lastActive:Date.now(),vitals:{health:83,hunger:52,drive:85,knowledge:78,boredom:22,curiosity:68},task:'Completing Fiverr gigs & Upwork tasks'},
+  {id:'sm',name:'Streamer',role:'Micro-Streaming',color:'#a855f7',zone:'residential',rev:3.90,status:'idle',lastActive:Date.now()-300000,vitals:{health:88,hunger:48,drive:62,knowledge:55,boredom:45,curiosity:72},task:'Setting up Twitch/YouTube micro-streams'},
+  {id:'rf',name:'Referrer',role:'Referral Program Hunter',color:'#22c55e',zone:'profit',rev:9.80,status:'working',lastActive:Date.now(),vitals:{health:86,hunger:50,drive:80,knowledge:68,boredom:20,curiosity:65},task:'Stacking referral bonuses across platforms'},
+  {id:'gi',name:'Gigster',role:'TaskRabbit & Local Gigs',color:'#06b6d4',zone:'business',rev:22.40,status:'working',lastActive:Date.now(),vitals:{health:80,hunger:58,drive:84,knowledge:62,boredom:12,curiosity:55},task:'Finding local gigs on TaskRabbit & Nextdoor'},
+  {id:'sl',name:'Seller',role:'Etsy & Handmade Store',color:'#d97706',zone:'studio',rev:16.50,status:'working',lastActive:Date.now(),vitals:{health:89,hunger:45,drive:78,knowledge:72,boredom:20,curiosity:70},task:'Managing Etsy & Amazon Handmade listings'},
+  {id:'rv',name:'Reviewer',role:'Software Reviews',color:'#6366f1',zone:'profit',rev:7.60,status:'working',lastActive:Date.now(),vitals:{health:87,hunger:48,drive:73,knowledge:75,boredom:28,curiosity:62},task:'Writing reviews on Capterra & G2 for pay'},
+  {id:'su',name:'Surveyor',role:'Dedicated Survey Pro',color:'#14b8a6',zone:'profit',rev:10.20,status:'working',lastActive:Date.now(),vitals:{health:90,hunger:42,drive:76,knowledge:60,boredom:50,curiosity:45},task:'Maximizing Survey Junkie, Toluna & Pinecone'},
+  {id:'bl',name:'Blogger',role:'Medium Partner Program',color:'#64748b',zone:'residential',rev:5.40,status:'idle',lastActive:Date.now()-600000,vitals:{health:85,hunger:50,drive:70,knowledge:85,boredom:30,curiosity:75},task:'Drafting Medium articles for partner earnings'},
+  {id:'af',name:'Affiliate',role:'Amazon Associates',color:'#f59e0b',zone:'profit',rev:13.20,status:'working',lastActive:Date.now(),vitals:{health:88,hunger:46,drive:79,knowledge:80,boredom:18,curiosity:68},task:'Promoting Amazon affiliate links & content'}
+];
+
+const ZONES = [
+  {id:'residential',name:'🏠 Residential District',facilities:['Smart Houses','Sleep Pods','Kitchen','Lounge','Home Theater','Gaming Lounge']},
+  {id:'business',name:'🏢 Business District',facilities:['R&D Lab','Code Workshop','Server Farm','Strategy Office','Micro-Task Floor','Tutoring Center']},
+  {id:'studio',name:'📸 Photo Studio & Listing Lab',facilities:['Light Box','Backdrop','Auto-Lister','Price Scanner','Etsy Workshop']},
+  {id:'fulfillment',name:'📦 Fulfillment Center',facilities:['Label Printer: ONLINE','Boxes: 12','Tape Station','Scale','Shipping Station']},
+  {id:'command',name:'🎯 Command Center',facilities:['The Hub','Data Vault','War Room','Treasury','Secure Comms']},
+  {id:'profit',name:'💰 Profit Floor',facilities:['Print-on-Demand','DropShipping','Crypto Trading','Micro-Task Hub','Survey Station','Review Desk','Kalshi Terminal','Faucet Farm']}
+];
+
+const STREAMS = [
+  {name:'Swagbucks / Hideout.tv',desc:'Passive video ad watching + surveys',rev:5.60,status:'Running — 4 devices',icon:'📺',color:'var(--green)',link:'https://www.swagbucks.com'},
+  {name:'Amazon Vine / UserTesting',desc:'Product reviews & UX testing',rev:8.90,status:'15 products in queue',icon:'✍️',color:'var(--cyan)',link:'https://www.usertesting.com'},
+  {name:'Print-on-Demand (Redbubble)',desc:'Auto-uploaded designs selling daily',rev:14.20,status:'52 designs live',icon:'👕',color:'var(--blue)',link:'https://www.redbubble.com'},
+  {name:'Crypto Faucets & Staking',desc:'BTC/ETH drips + staking rewards',rev:3.50,status:'8 faucets active',icon:'₿',color:'var(--gold)',link:'https://cointiply.com'},
+  {name:'DEX Arbitrage (Vector)',desc:'Cross-exchange price gaps on Jupiter',rev:28.40,status:'Scanning 18 pairs',icon:'⚡',color:'var(--purple)',link:'https://jup.ag'},
+  {name:'Sign-Up Bonuses',desc:'Bank/crypto referral stacking',rev:18.20,status:'4 bonuses pending',icon:'🎁',color:'var(--teal)',link:'https://www.chase.com'},
+  {name:'eBay/Mercari Flipping',desc:'Scout finds → Lens lists → Courier ships',rev:13.80,status:'Lot inbound: Funko Pops',icon:'📦',color:'var(--indigo)',link:'https://www.ebay.com'},
+  {name:'Beta Testing (TestBirds)',desc:'App QA & bug bounty programs',rev:11.40,status:'3 tests in progress',icon:'🐞',color:'var(--pink)',link:'https://www.testbirds.com'},
+  {name:'Kalshi Event Trading',desc:'Binary event contracts',rev:2.40,status:'Awaiting market open',icon:'🎯',color:'var(--orange)',link:'https://kalshi.com'},
+  {name:'DropShipping Automation',desc:'Oberlo-style auto-fulfillment',rev:9.50,status:'9 orders today',icon:'🚚',color:'var(--yellow)',link:'https://www.shopify.com'},
+  {name:'Amazon MTurk (Turker)',desc:'Human Intelligence Tasks batch work',rev:8.40,status:'42 HITs completed today',icon:'🤖',color:'var(--sky)',link:'https://www.mturk.com'},
+  {name:'Rev.com Transcription',desc:'Audio-to-text transcription jobs',rev:12.60,status:'6 files in queue',icon:'🎧',color:'var(--rose)',link:'https://www.rev.com'},
+  {name:'Mistplay Gaming',desc:'Play mobile games for gift cards',rev:3.20,status:'Level 12 on 3 games',icon:'🎮',color:'var(--lime)',link:'https://www.mistplay.com'},
+  {name:'Fiverr Micro-Gigs',desc:'Quick freelance tasks & services',rev:19.70,status:'5 active orders',icon:'💼',color:'var(--orange)',link:'https://www.fiverr.com'},
+  {name:'Chegg Tutoring',desc:'Q&A tutoring for students',rev:15.30,status:'8 questions answered',icon:'📚',color:'var(--blue)',link:'https://www.chegg.com'},
+  {name:'Etsy Handmade Store',desc:'Handmade & vintage sales',rev:16.50,status:'23 listings active',icon:'🏺',color:'var(--amber)',link:'https://www.etsy.com'},
+  {name:'Survey Junkie / Toluna',desc:'High-paying survey routing',rev:10.20,status:'Router hot — 6 surveys/hr',icon:'📋',color:'var(--teal)',link:'https://www.surveyjunkie.com'},
+  {name:'Cashback Apps (Ibotta)',desc:'Receipt scanning & cashback',rev:4.80,status:'3 receipts pending',icon:'💳',color:'var(--emerald)',link:'https://www.ibotta.com'},
+  {name:'Medium Partner Program',desc:'Article earnings via reads',rev:5.40,status:'3 articles published',icon:'📝',color:'var(--slate)',link:'https://medium.com'},
+  {name:'Amazon Associates',desc:'Affiliate link commissions',rev:13.20,status:'47 clicks today',icon:'🔗',color:'var(--gold)',link:'https://affiliate-program.amazon.com'}
+];
+
+const BANKS = [
+  {name:'Chase Checking',status:'Connected — $75 bonus pending',icon:'🏦',btn:'View',link:'https://www.chase.com'},
+  {name:'SoFi Money',status:'Connected — $50 referral active',icon:'💳',btn:'View',link:'https://www.sofi.com'},
+  {name:'Coinbase',status:'Connected — auto-convert on',icon:'🪙',btn:'Trade',link:'https://www.coinbase.com'},
+  {name:'MetaMask',status:'Connected — 3 wallets',icon:'🦊',btn:'View',link:'https://metamask.io'},
+  {name:'PayPal',status:'Connected — instant transfer',icon:'💰',btn:'Transfer',link:'https://www.paypal.com'},
+  {name:'Venmo',status:'Connected — peer payments',icon:'💸',btn:'Split',link:'https://venmo.com'}
+];
+
+const STOREFRONTS = [
+  {name:'Redbubble Shop',status:'52 designs live — $128.40 balance',icon:'👕',rev:'$14.20/hr',link:'https://www.redbubble.com'},
+  {name:'Etsy Store',status:'23 listings — $94.30 balance',icon:'🏺',rev:'$16.50/hr',link:'https://www.etsy.com'},
+  {name:'Mercari Closet',status:'18 items listed — $67.80 balance',icon:'🛍️',rev:'$8.40/hr',link:'https://www.mercari.com'},
+  {name:'eBay Store',status:'31 active listings — $112.50 balance',icon:'🏷️',rev:'$13.80/hr',link:'https://www.ebay.com'},
+  {name:'Poshmark Closet',status:'12 items — $34.20 balance',icon:'👗',rev:'$5.60/hr',link:'https://www.poshmark.com'},
+  {name:'Amazon Merch',status:'8 designs live — $45.00 balance',icon:'📦',rev:'$9.20/hr',link:'https://merch.amazon.com'},
+  {name:'Teespring (Spring)',status:'15 designs — $28.90 balance',icon:'👕',rev:'$6.80/hr',link:'https://www.spri.ng'},
+  {name:'Fiverr Profile',status:'5 active gigs — $89.40 balance',icon:'💼',rev:'$19.70/hr',link:'https://www.fiverr.com'}
+];
+
+const PLATFORMS = [
+  {name:'Swagbucks',bal:'$28.40',pending:'$4.80'},{name:'UserTesting',bal:'$52.00',pending:'$18.00'},
+  {name:'Redbubble',bal:'$128.40',pending:'$24.10'},{name:'TestBirds',bal:'€38.00',pending:'€10.50'},
+  {name:'Amazon Associates',bal:'$74.30',pending:'$14.40'},{name:'Kalshi',bal:'$22.00',pending:'$0.00'},
+  {name:'MTurk',bal:'$34.20',pending:'$8.40'},{name:'Rev.com',bal:'$48.50',pending:'$12.60'},
+  {name:'Fiverr',bal:'$89.40',pending:'$32.00'},{name:'Chegg',bal:'$67.80',pending:'$15.30'},
+  {name:'Survey Junkie',bal:'$18.40',pending:'$3.20'},{name:'Mistplay',bal:'$12.80',pending:'$3.20'}
+];
+
+const THOUGHTS = {
+  mv:['That cat-meme niche is heating up on TikTok','POD margins on mugs just jumped 12%','Should we test the "retro gaming" vertical?','Redbubble featured our design!'],
+  ct:['Catalyst just rendered 12 new designs','The script for the ad-roll loop is done','Color palette A/B test shows blue wins','New font combo looks fire'],
+  cp:['Bot uptime: 99.7% this week','New scraping endpoint discovered','API rate limit increased — more throughput','Deployed 3 new automation scripts'],
+  vc:['SOL/USDC spread is 0.4% on Jupiter','Arbitrage window closing in 3 min','Staking APY on Marinade: 6.2%','BTC consolidation — good entry soon'],
+  nx:['Discord grew 47 members today','Reddit post hit 2.3k upvotes','Newsletter open rate: 34%','New community partnership inbound'],
+  ar:['All systems nominal. Profit trajectory: up.','Next R&D target: AI voice agents','Crew morale is high. Keep pushing.','Deploying new profit strategy at 4PM'],
+  wa:['Hideout.tv ad density increased','Swagbucks daily goal: 75% complete','New survey router detected','Loot.tv playlist refreshed'],
+  sc:['Amazon review approval rate: 89%','UserTesting 5-star streak: 8 tests','Drafted 6 reviews this hour','Capterra review got 12 helpful votes'],
+  pr:['Chase $300 bonus expires in 3 days','SoFi referral link got 4 clicks','New bank bonus: $200 found','Crypto faucet: 0.0001 BTC/hr drip'],
+  se:['Bug found in beta app — bounty incoming','TestBirds rating: 4.9/5','3 new test invitations received','UI glitch logged for $15 bounty'],
+  st:['eBay lot: 50 Funkos for $80 → $180 resale','Facebook free section has a desk','Mercari shipping promo active','Scout found vintage sneakers for $20'],
+  ln:['Photo studio lighting calibrated','Auto-listing template updated','Poshmark share bot running','Etsy SEO keywords optimized'],
+  co:['Label printer: 47 labels printed today','USPS pickup scheduled for 2PM','Box inventory: 8 remaining','Shipment tracking all green'],
+  gm:['Mistplay level 12 reached!','Lucktastic streak: 5 days','New game pays 2x points this week','Gift card redemption ready'],
+  tr:['Rev.com file approved — $8.50','TranscribeMe queue is full','Audio quality on this file is rough','Typing speed: 87 WPM today'],
+  tk:['MTurk HIT approval rate: 98%','42 HITs done this session','New batch posted — $0.25 each','Clickworker survey router active'],
+  cl:['Microworkers task queue loaded','Data entry accuracy: 99.2%','Form filling batch: 200 entries','Verification task approved'],
+  fc:['Cointiply faucet claimed','FreeBitcoin roll: 0.000004 BTC','FireFaucet auto-claim running','Staking reward: $0.87'],
+  sh:['Ibotta: $12.40 cashback pending','Rakuten 8% back at Target today','Fetch Rewards receipt scanned','Cashback stack maximized'],
+  tu:['Chegg question accepted — $3.50','Course Hero doc uploaded','Student rating: 5 stars','3 more questions in queue'],
+  ph:['Foap photo sold!','Shutterstock batch uploaded','Photo accepted to Adobe Stock','New collection: "Urban Texas"'],
+  fl:['Fiverr order delivered — $25','Upwork proposal accepted','Client wants revision — easy fix','New gig idea: AI prompts'],
+  sm:['Twitch stream setup complete','YouTube Shorts algorithm pickup','Streamlabs donations: $3.20','Going live in 10 minutes'],
+  rf:['Referral bonus: $50 confirmed','New program: $100 per referral','Link clicks today: 23','Conversion rate: 8.7%'],
+  gi:['TaskRabbit gig booked — $45','Nextdoor job: assemble furniture','Local delivery: $30','5-star review received!'],
+  sl:['Etsy sale: $24.50','Amazon Handmade order shipped','New listing views: 47','Customer message: custom request'],
+  rv:['Capterra review approved — $10','G2 review got 15 upvotes','Software trial completed','New review opportunity: $15'],
+  su:['Survey Junkie: $3.20 this hour','Toluna router hot right now','Pinecone product test incoming','Disqualified from 2, qualified for 3'],
+  bl:['Medium article: 1.2k views','Partner earnings: $5.40 today','Draft saved: "Side Hustle Guide"','Clapped by top writer!'],
+  af:['Amazon link: 47 clicks, 3 orders','Commission rate: 4%','Holiday prep content planned','Affiliate cookie: 24hr window']
+};
+
+const CHAT_RESPONSES = {
+  archon:['All systems nominal. Profit trajectory is positive.','Crew efficiency at 94%. Maintain course.','I have 3 new R&D initiatives queued.','The profit amplifier is holding steady.','Deploying additional bots now.'],
+  maverick:['I found a hot niche: retro anime on mugs.','POD sales are climbing 8% this hour.','Redbubble just featured one of our designs.','Should I expand to phone cases?','New trending keyword: "cottagecore"'],
+  catalyst:['Catalyst just rendered 12 new designs.','The script for the ad-roll loop is done.','Color palette A/B test shows blue wins.','New font combo looks fire.'],
+  cipher:['Bots are running clean. 99.9% uptime.','New automation pipeline deployed.','Scraped 400 leads in the last hour.','No errors. All green.','API rate limit increased.'],
+  vector:['SOL arbitrage just netted $2.40.','BTC is consolidating. Good entry soon.','Staking rewards auto-compounded.','DEX liquidity looking healthy.','New pair discovered: SOL/BONK'],
+  watcher:['Ad rolls are flowing. $0.40/hr steady.','Swagbucks survey router is hot right now.','Hideout.tv just added new playlists.','Passive income stream stable.','Loot.tv bonus active.'],
+  scribe:['Wrote 8 reviews this session.','UserTesting queue is full.','Amazon Vine delivery confirmed.','Drafting a killer product comparison.','Capterra review got featured.'],
+  prospect:['Chase bonus: $75 confirmed.','SoFi referral hit — $50 incoming.','Found a new bank bonus: $200.','Crypto faucet drips are steady.','Referral link got 4 clicks today.'],
+  scout:['eBay deal looks solid. Pulling trigger.','Facebook free section has a desk.','Mercari promo ends tonight.','Funko Pop lot inbound.','Vintage sneakers found for $20.'],
+  lens:['Photos look crisp. Uploading now.','Auto-list generated 4 platforms.','Lighting is perfect today.','Poshmark shares getting traction.','Etsy SEO keywords optimized.'],
+  courier:['Labels printed. Ready for pickup.','USPS scan confirmed.','Box stock: 8 left. Reorder soon.','Shipment tracking updated.','47 labels printed today.'],
+  sentry:['App test complete. Bug logged.','TestBirds invited me to 2 more.','Beta app crashed — bounty incoming.','QA score: 98%.','UI glitch found for $15.'],
+  nexus:['Community grew 50 today.','Newsletter sent. 40% open rate.','Reddit post trending.','Discord is buzzing.','New partnership inbound.'],
+  gamer:['Mistplay level 12!','Lucktastic streak: 5 days.','New game pays 2x this week.','Gift card ready to redeem.'],
+  transcriber:['Rev file approved — $8.50.','Typing speed: 87 WPM.','TranscribeMe queue full.','Audio rough but doable.'],
+  turker:['42 HITs done today.','Approval rate: 98%.','New batch: $0.25 each.','Clickworker router active.'],
+  clicker:['200 entries completed.','Accuracy: 99.2%.','Microworkers queue loaded.','Verification approved.'],
+  faucet:['Cointiply claimed!','FreeBitcoin roll done.','FireFaucet auto-running.','Staking reward: $0.87.'],
+  shopper:['Ibotta: $12.40 pending.','Rakuten 8% at Target.','Receipt scanned on Fetch.','Cashback stack maxed.'],
+  tutor:['Chegg question: $3.50.','5-star rating received.','3 more in queue.','Course Hero doc uploaded.'],
+  photog:['Foap photo sold!','Shutterstock batch up.','New collection started.','Adobe Stock accepted.'],
+  freelancer:['Fiverr order: $25 delivered.','Upwork proposal accepted.','Revision requested — easy.','New gig idea: AI prompts.'],
+  streamer:['Twitch setup complete.','Going live in 10 min.','Streamlabs: $3.20 donations.','Shorts algorithm pickup.'],
+  referrer:['Referral: $50 confirmed.','23 link clicks today.','Conversion: 8.7%.','New $100 program found.'],
+  gigster:['TaskRabbit: $45 booked.','Nextdoor furniture gig.','5-star review!','Local delivery: $30.'],
+  seller:['Etsy sale: $24.50!','Handmade order shipped.','47 listing views.','Custom request received.'],
+  reviewer:['Capterra: $10 approved.','15 upvotes on G2.','New $15 opportunity.','Trial completed.'],
+  surveyor:['$3.20 this hour.','Toluna router HOT.','3 qualified, 2 disqualified.','Pinecone test incoming.'],
+  blogger:['1.2k views today.','Partner: $5.40 earned.','Draft saved.','Clapped by top writer!'],
+  affiliate:['47 clicks, 3 orders.','4% commission rate.','Holiday prep planned.','24hr cookie window.']
+};
+
+const REWARDS = [
+  {type:'coffee',label:'☕ Coffee',effect:'hunger',val:30},
+  {type:'energy',label:'⚡ Energy',effect:'drive',val:25},
+  {type:'brain',label:'🧠 Brain',effect:'knowledge',val:20},
+  {type:'money',label:'💵 Bonus',effect:'drive',val:35},
+  {type:'vacation',label:'🏖️ Break',effect:'health',val:40}
+];
+
+const ACTIVITY_SEEDS = [
+  '💰 Revenue tick: +$0.42','🤖 Cipher deployed new bot','⚡ Vector detected arbitrage','📦 Scout bookmarked eBay lot',
+  '👁️ Watcher completed daily goal','✍️ Scribe submitted 3 reviews','🎁 Prospect claimed $25 bonus','🐞 Sentry found UI bug — bounty!',
+  '📸 Lens uploaded 5 listings','🏷️ Courier printed shipping label','🎯 Maverick identified trending niche','📈 Nexus gained 12 Discord members',
+  '🎨 Catalyst rendered new batch','💧 Crypto faucet drip: $0.03','👕 Redbubble sale: $4.50','🧪 UserTesting payout: $10.00',
+  '💬 Mercari message: buyer interested','🎯 Kalshi market opened','🏦 Staking reward: $0.87','🎮 Gamer reached Mistplay level 13',
+  '🎧 Transcriber finished Rev file','🤖 Turker completed 50 HITs','📋 Surveyor qualified for $5 survey','💳 Shopper scanned Ibotta receipt',
+  '📚 Tutor answered Chegg question','📷 Photog sold photo on Foap','💼 Freelancer delivered Fiverr order','📺 Streamer went live on Twitch',
+  '🔗 Referrer got 3 link clicks','🛠️ Gigster booked TaskRabbit job','🏺 Seller got Etsy custom request','⭐ Reviewer got Capterra approval'
+];
+
+let totalRev = 3847.50;
+let todayRev = 224.30;
+let taskCount = 2847;
+let revHistory = [];
+let streamHistory = [];
+let activityLog = [];
+let chatHistory = [];
+
+for(let i=0;i<48;i++){
+  revHistory.push({micro:Math.random()*4+1,pod:Math.random()*6+2,crypto:Math.random()*10+1,survey:Math.random()*3+0.5,testing:Math.random()*5+1});
+  streamHistory.push({active:Math.random()*60+20,growing:Math.random()*40+10,peak:Math.random()*30+5});
+}
+
+function init(){
+  createParticles();
+  renderZones();
+  renderCrew();
+  renderLeaderboard();
+  renderStreams();
+  renderBanks();
+  renderStorefronts();
+  renderPlatforms();
+  renderActivity();
+  renderThoughts();
+  renderChat();
+  renderRevSummary();
+  updateTime();
+  fetchCrypto();
+  fetchWeather();
+  setInterval(updateTime,1000);
+  setInterval(simulate,3000);
+  setInterval(fetchCrypto,30000);
+  setInterval(decayVitals,5000);
+  setInterval(()=>{addRandomThought();addRandomChat();},7000);
+  setInterval(moneyRain,15000);
+  window.addEventListener('resize',drawGraphs);
+  setTimeout(drawGraphs,100);
+}
+
+function createParticles(){
+  const container = document.getElementById('particles');
+  for(let i=0;i<20;i++){
+    const p = document.createElement('div');
+    p.className = 'particle';
+    p.style.left = Math.random()*100+'%';
+    p.style.top = Math.random()*100+'%';
+    p.style.animationDelay = Math.random()*8+'s';
+    p.style.animationDuration = (6+Math.random()*6)+'s';
+    container.appendChild(p);
+  }
+}
+
+function updateTime(){
+  const now = new Date();
+  const tx = new Date(now.toLocaleString('en-US',{timeZone:'America/Chicago'}));
+  const h = String(tx.getHours()).padStart(2,'0');
+  const m = String(tx.getMinutes()).padStart(2,'0');
+  const s = String(tx.getSeconds()).padStart(2,'0');
+  document.getElementById('clk').textContent = h+':'+m+':'+s;
+}
+
+async function fetchWeather(){
+  try{
+    const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=29.76&longitude=-95.37&current_weather=true&temperature_unit=fahrenheit');
+    const data = await res.json();
+    const w = data.current_weather;
+    document.getElementById('weather-temp').textContent = Math.round(w.temperature)+'°F';
+    const codes = {0:'Clear sky',1:'Mainly clear',2:'Partly cloudy',3:'Overcast',45:'Foggy',48:'Foggy',51:'Light drizzle',53:'Drizzle',55:'Heavy drizzle',61:'Light rain',63:'Rain',65:'Heavy rain',71:'Light snow',73:'Snow',75:'Heavy snow',95:'Thunderstorm'};
+    const desc = codes[w.weathercode]||'Partly cloudy';
+    document.getElementById('weather-desc').textContent = desc + ' — Wind '+Math.round(w.windspeed)+' mph';
+    const icons = {0:'☀️',1:'🌤️',2:'⛅',3:'☁️',45:'🌫️',48:'🌫️',51:'🌦️',53:'🌧️',55:'🌧️',61:'🌧️',63:'🌧️',65:'🌧️',71:'🌨️',73:'🌨️',75:'🌨️',95:'⛈️'};
+    document.getElementById('weather-icon').textContent = icons[w.weathercode]||'🌤️';
+  }catch(e){
+    document.getElementById('weather-temp').textContent = '85°F';
+    document.getElementById('weather-desc').textContent = 'Partly cloudy — Houston, TX';
+  }
+}
+
+function renderZones(){
+  const grid = document.getElementById('zone-grid');
+  grid.innerHTML = ZONES.map(z=>{
+    const zoneAgents = AGENTS.filter(a=>a.zone===z.id);
+    return `<div class="zone">
+      <div class="zone-name"><span class="zone-icon">${z.name.split(' ')[0]}</span>${z.name.split(' ').slice(1).join(' ')}</div>
+      <div class="facilities">${z.facilities.map(f=>`<span class="tag${f.includes('ONLINE')||f.includes('Printer')?' hot':''}">${f}</span>`).join('')}</div>
+      <div class="agents">${zoneAgents.map(a=>`
+        <div class="agent-chip ${a.status}" onclick="openAgent('${a.id}')">
+          <div class="agent-avatar-wrap">${makeAvatar(a)}<div class="status-ring"></div></div>
+          <div style="flex:1;min-width:0">
+            <div class="agent-chip-name">${a.name}${a.max?' <span class="max-badge">MAX</span>':''}</div>
+            <div class="agent-chip-task"><span class="work-indicator ${a.status}"></span>${a.task}</div>
+          </div>
+          <div class="agent-chip-earn">+$${a.rev.toFixed(2)}</div>
+        </div>`).join('')}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function renderLeaderboard(){
+  const sorted = [...AGENTS].sort((a,b)=>b.rev-a.rev).slice(0,5);
+  document.getElementById('leaderboard').innerHTML = sorted.map((a,i)=>`
+    <div class="lb-item">
+      <div class="lb-rank">#${i+1}</div>
+      <div class="lb-name">${a.name}</div>
+      <div class="lb-earn">$${a.rev.toFixed(2)}/hr</div>
+    </div>`).join('');
+}
+
+function renderCrew(){
+  document.getElementById('crew-grid').innerHTML = AGENTS.map(a=>`
+    <div class="crew-card ${a.status}" onclick="openAgent('${a.id}')">
+      <div class="crew-header">
+        <div class="crew-avatar">${makeAvatar(a)}</div>
+        <div class="crew-info">
+          <div class="crew-name">${a.name}${a.max?' <span class="max-badge">MAX</span>':''}</div>
+          <div class="crew-role">${a.role}</div>
+          <div class="crew-status-row">
+            <span class="work-indicator ${a.status}"></span>
+            <span class="crew-status-text ${a.status}">${a.status==='working'?'Working':a.status==='idle'?'Idle':'On Break'}</span>
+            <span class="crew-last">${formatLastActive(a.lastActive)}</span>
+          </div>
+        </div>
+      </div>
+      <div class="crew-vitals">
+        ${vitalBar('Health',a.vitals.health,'#22c55e')}
+        ${vitalBar('Hunger',a.vitals.hunger,'#f97316')}
+        ${vitalBar('Drive',a.vitals.drive,'#3b82f6')}
+        ${vitalBar('Knowledge',a.vitals.knowledge,'#a855f7')}
+        ${vitalBar('Boredom',a.vitals.boredom,'#ef4444')}
+        ${vitalBar('Curiosity',a.vitals.curiosity,'#06b6d4')}
+      </div>
+      <div class="crew-task">${a.task}</div>
+      <div class="crew-rev" style="color:var(--green)">+$${a.rev.toFixed(2)}/hr</div>
+      <div class="reward-row">
+        ${REWARDS.map(r=>`<button class="reward-btn ${r.type}" onclick="event.stopPropagation();giveReward('${a.id}','${r.type}')">${r.label}</button>`).join('')}
+      </div>
+    </div>`).join('');
+}
+
+function vitalBar(label,val,color){
+  return `<div class="vital-item"><div class="vital-label"><span>${label}</span><span>${Math.round(val)}%</span></div><div class="vital-bar"><div class="vital-fill" style="width:${val}%;background:${color}"></div></div></div>`;
+}
+
+function formatLastActive(ts){
+  const diff = Date.now()-ts;
+  if(diff<60000)return 'now';
+  if(diff<3600000)return Math.floor(diff/60000)+'m ago';
+  return Math.floor(diff/3600000)+'h ago';
+}
+
+function openAgent(id){
+  const a = AGENTS.find(x=>x.id===id); if(!a)return;
+  document.getElementById('modal-avatar').innerHTML = makeAvatar(a)+'<div class="modal-status-ring"></div>';
+  document.getElementById('modal-name').textContent = a.name;
+  document.getElementById('modal-role').textContent = a.role;
+  document.getElementById('modal-last').textContent = 'Last active: '+formatLastActive(a.lastActive);
+  document.getElementById('modal-task').textContent = a.task;
+  document.getElementById('modal-vitals').innerHTML = `
+    ${vitalBar('Health',a.vitals.health,'#22c55e')}
+    ${vitalBar('Hunger',a.vitals.hunger,'#f97316')}
+    ${vitalBar('Drive',a.vitals.drive,'#3b82f6')}
+    ${vitalBar('Knowledge',a.vitals.knowledge,'#a855f7')}
+    ${vitalBar('Boredom',a.vitals.boredom,'#ef4444')}
+    ${vitalBar('Curiosity',a.vitals.curiosity,'#06b6d4')}`;
+  document.getElementById('modal-rewards').innerHTML = REWARDS.map(r=>`
+    <button class="reward-btn ${r.type}" onclick="giveReward('${a.id}','${r.type}');closeModal()">${r.label}</button>`).join('');
+  const thoughts = THOUGHTS[a.id]||['Thinking...'];
+  document.getElementById('modal-thought').innerHTML = `<strong style="color:var(--gold)">💭 Current thought:</strong> ${thoughts[Math.floor(Math.random()*thoughts.length)]}`;
+  document.getElementById('agent-modal').classList.add('active');
+}
+
+function closeModal(e){
+  if(!e||e.target===document.getElementById('agent-modal'))
+    document.getElementById('agent-modal').classList.remove('active');
+}
+
+function giveReward(agentId,type){
+  const a = AGENTS.find(x=>x.id===agentId); if(!a)return;
+  const r = REWARDS.find(x=>x.type===type); if(!r)return;
+  a.vitals[r.effect] = Math.min(100,a.vitals[r.effect]+r.val);
+  if(r.effect==='hunger')a.vitals.health=Math.min(100,a.vitals.health+10);
+  if(r.type==='vacation'){a.vitals.boredom=Math.max(0,a.vitals.boredom-30);a.vitals.drive=Math.min(100,a.vitals.drive+20);a.status='break';}
+  if(r.type==='energy')a.status='working';
+  a.lastActive = Date.now();
+  renderCrew();
+  renderZones();
+  renderLeaderboard();
+  showFloatReward(event?.clientX||window.innerWidth/2,event?.clientY||window.innerHeight/2,r.label);
+  logActivity(`🎁 ${a.name} received ${r.label} — ${r.effect} +${r.val}%`);
+}
+
+function showFloatReward(x,y,text){
+  const el = document.createElement('div');
+  el.className='float-reward';
+  el.style.left=x+'px';
+  el.style.top=y+'px';
+  el.textContent=text;
+  document.body.appendChild(el);
+  setTimeout(()=>el.remove(),1500);
+}
+
+function moneyRain(){
+  const symbols = ['💵','💰','🪙','💎','🏆'];
+  for(let i=0;i<5;i++){
+    const el = document.createElement('div');
+    el.className='money-particle';
+    el.textContent = symbols[Math.floor(Math.random()*symbols.length)];
+    el.style.left = (Math.random()*90+5)+'%';
+    el.style.animationDuration = (2+Math.random()*2)+'s';
+    document.body.appendChild(el);
+    setTimeout(()=>el.remove(),4000);
+  }
+}
+
+function renderStreams(){
+  document.getElementById('streams-list').innerHTML = STREAMS.map(s=>`
+    <div class="stream-item">
+      <div class="stream-icon" style="background:${s.color}20;color:${s.color}">${s.icon}</div>
+      <div class="stream-info">
+        <div class="stream-name">${s.name}</div>
+        <div class="stream-desc">${s.desc}</div>
+        <div class="stream-status">${s.status}</div>
+        ${s.link?`<a class="stream-link" href="${s.link}" target="_blank" rel="noopener">Open Platform →</a>`:''}
+      </div>
+      <div class="stream-rev">+$${s.rev.toFixed(2)}/hr</div>
+    </div>`).join('');
+}
+
+function renderRevSummary(){
+  const total = STREAMS.reduce((s,x)=>s+x.rev,0);
+  document.getElementById('rev-summary').innerHTML = `
+    <div class="rev-sum-item"><div class="rev-sum-label">Combined Hourly</div><div class="rev-sum-val" style="color:var(--green)">$${total.toFixed(2)}</div></div>
+    <div class="rev-sum-item"><div class="rev-sum-label">Daily Est.</div><div class="rev-sum-val" style="color:var(--blue)">$${(total*24).toFixed(2)}</div></div>
+    <div class="rev-sum-item"><div class="rev-sum-label">Weekly Est.</div><div class="rev-sum-val" style="color:var(--purple)">$${(total*168).toFixed(2)}</div></div>
+    <div class="rev-sum-item"><div class="rev-sum-label">Monthly Est.</div><div class="rev-sum-val" style="color:var(--gold)">$${(total*720).toFixed(2)}</div></div>`;
+}
+
+function renderBanks(){
+  document.getElementById('bank-grid').innerHTML = BANKS.map(b=>`
+    <div class="bank-card">
+      <div class="bank-logo">${b.icon}</div>
+      <div class="bank-info"><div class="bank-name">${b.name}</div><div class="bank-status">${b.status}</div></div>
+      <a class="bank-btn" href="${b.link}" target="_blank" rel="noopener">${b.btn}</a>
+    </div>`).join('');
+}
+
+function renderStorefronts(){
+  document.getElementById('store-grid').innerHTML = STOREFRONTS.map(s=>`
+    <div class="store-card">
+      <div class="store-header">
+        <div class="store-icon">${s.icon}</div>
+        <div>
+          <div class="store-name">${s.name}</div>
+          <div class="store-status">${s.status}</div>
+        </div>
+      </div>
+      <a class="store-link" href="${s.link}" target="_blank" rel="noopener">Open Storefront →</a>
+      <div class="store-rev">${s.rev}/hr</div>
+    </div>`).join('');
+}
+
+function renderPlatforms(){
+  document.getElementById('platform-balances').innerHTML = PLATFORMS.map(p=>`
+    <div class="platform-item">
+      <div class="platform-info"><div class="platform-name">${p.name}</div><div class="platform-pending">Pending: ${p.pending}</div></div>
+      <div class="platform-bal">${p.bal}</div>
+    </div>`).join('');
+}
+
+function renderChat(){
+  const box = document.getElementById('chat-box');
+  const initial = [
+    {t:'15:08',n:'Archon',c:'var(--gold)',m:'All 30 agents are now live. Profit floor is fully staffed. Let\'s make money.'},
+    {t:'15:08',n:'Cipher',c:'var(--green)',m:'Bots deployed across 8 platforms. Uptime: 99.9%.'},
+    {t:'15:09',n:'Vector',c:'var(--purple)',m:'SOL/USDC arbitrage window detected. Executing trades now.'},
+    {t:'15:09',n:'Surveyor',c:'var(--teal)',m:'Survey Junkie router is HOT. 6 surveys available this hour.'},
+    {t:'15:10',n:'Turker',c:'var(--sky)',m:'MTurk batch posted — 200 HITs at $0.25 each. Grinding now.'},
+    {t:'15:10',n:'Gamer',c:'var(--lime)',m:'Mistplay level 12 reached! Gift card redemption ready.'},
+    {t:'15:11',n:'Freelancer',c:'var(--orange)',m:'Fiverr order delivered — $25. Client left 5 stars.'},
+    {t:'15:11',n:'Scout',c:'var(--indigo)',m:'eBay lot secured: 50 Funko Pops for $80. Resale: $180.'},
+    {t:'15:12',n:'Archon',c:'var(--gold)',m:'Excellent. All channels green. Profit amplifier at MAXIMUM.'}
+  ];
+  chatHistory = initial;
+  box.innerHTML = initial.map(x=>chatLine(x.t,x.n,x.c,x.m)).join('');
+  box.scrollTop = box.scrollHeight;
+}
+
+function chatLine(t,n,c,m){
+  return `<div class="chat-line"><span class="chat-time">${t}</span><span class="chat-name" style="color:${c}">${n}:</span> ${m}</div>`;
+}
+
+function sendChat(){
+  const input = document.getElementById('chat-input');
+  const msg = input.value.trim(); if(!msg)return;
+  input.value='';
+  const now = new Date();
+  const t = String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0');
+  const box = document.getElementById('chat-box');
+  box.innerHTML += chatLine(t,'You','var(--text)',msg);
+  box.scrollTop = box.scrollHeight;
+  chatHistory.push({t,n:'You',c:'var(--text)',m:msg});
+
+  setTimeout(()=>{
+    let responder = 'ar';
+    const lower = msg.toLowerCase();
+    const map = {
+      'maverick':'mv','catalyst':'ct','cipher':'cp','vector':'vc','nexus':'nx','archon':'ar','watcher':'wa','scribe':'sc',
+      'prospect':'pr','sentry':'se','scout':'st','lens':'ln','courier':'co','gamer':'gm','transcriber':'tr','turker':'tk',
+      'clicker':'cl','faucet':'fc','shopper':'sh','tutor':'tu','photog':'ph','freelancer':'fl','streamer':'sm','referrer':'rf',
+      'gigster':'gi','seller':'sl','reviewer':'rv','surveyor':'su','blogger':'bl','affiliate':'af'
+    };
+    for(const [key,val] of Object.entries(map)){if(lower.includes(key)){responder=val;break;}}
+    if(lower.includes('pod')||lower.includes('niche'))responder='mv';
+    else if(lower.includes('bot')||lower.includes('auto'))responder='cp';
+    else if(lower.includes('crypto')||lower.includes('trade'))responder='vc';
+    else if(lower.includes('video')||lower.includes('survey'))responder='wa';
+    else if(lower.includes('review')||lower.includes('write'))responder='sc';
+    else if(lower.includes('bonus')||lower.includes('sign'))responder='pr';
+    else if(lower.includes('flip')||lower.includes('deal'))responder='st';
+    else if(lower.includes('photo')||lower.includes('list'))responder='ln';
+    else if(lower.includes('ship'))responder='co';
+    else if(lower.includes('test')||lower.includes('qa'))responder='se';
+    else if(lower.includes('game')||lower.includes('play'))responder='gm';
+    else if(lower.includes('transcribe')||lower.includes('audio'))responder='tr';
+    else if(lower.includes('mturk')||lower.includes('hit'))responder='tk';
+    else if(lower.includes('faucet')||lower.includes('bitcoin'))responder='fc';
+    else if(lower.includes('cashback')||lower.includes('receipt'))responder='sh';
+    else if(lower.includes('tutor')||lower.includes('chegg'))responder='tu';
+    else if(lower.includes('stock')||lower.includes('foap'))responder='ph';
+    else if(lower.includes('fiverr')||lower.includes('freelance'))responder='fl';
+    else if(lower.includes('stream')||lower.includes('twitch'))responder='sm';
+    else if(lower.includes('referral')||lower.includes('refer'))responder='rf';
+    else if(lower.includes('gig')||lower.includes('task'))responder='gi';
+    else if(lower.includes('etsy')||lower.includes('handmade'))responder='sl';
+    else if(lower.includes('capterra')||lower.includes('g2'))responder='rv';
+    else if(lower.includes('survey junkie')||lower.includes('toluna'))responder='su';
+    else if(lower.includes('medium')||lower.includes('blog'))responder='bl';
+    else if(lower.includes('amazon')||lower.includes('affiliate'))responder='af';
+
+    const a = AGENTS.find(x=>x.id===responder);
+    const responses = CHAT_RESPONSES[a.name.toLowerCase().replace(/[^a-z]/g,'')]||['Working hard!'];
+    const response = responses[Math.floor(Math.random()*responses.length)];
+    const t2 = String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0')+':'+String(now.getSeconds()).padStart(2,'0');
+    box.innerHTML += chatLine(t2,a.name,a.color,response);
+    box.scrollTop = box.scrollHeight;
+    chatHistory.push({t:t2,n:a.name,c:a.color,m:response});
+    logActivity(`💬 ${a.name} responded to command`);
+  },600+Math.random()*600);
+}
+
+function addRandomChat(){
+  if(Math.random()>0.5)return;
+  const ids = AGENTS.filter(a=>!a.max).map(a=>a.id);
+  const id = ids[Math.floor(Math.random()*ids.length)];
+  const a = AGENTS.find(x=>x.id===id);
+  const responses = CHAT_RESPONSES[a.name.toLowerCase().replace(/[^a-z]/g,'')]||['Working...'];
+  const response = responses[Math.floor(Math.random()*responses.length)];
+  const now = new Date();
+  const t = String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0');
+  const box = document.getElementById('chat-box');
+  if(chatHistory.length>50){chatHistory.shift();box.removeChild(box.firstElementChild);}
+  box.innerHTML += chatLine(t,a.name,a.color,response);
+  box.scrollTop = box.scrollHeight;
+  chatHistory.push({t,n:a.name,c:a.color,m:response});
+}
+
+function renderThoughts(){
+  const panel = document.getElementById('thoughts-panel');
+  const picks = AGENTS.sort(()=>Math.random()-0.5).slice(0,4);
+  panel.innerHTML = picks.map(a=>{
+    const thoughts = THOUGHTS[a.id]||['Thinking...'];
+    const thought = thoughts[Math.floor(Math.random()*thoughts.length)];
+    return `<div class="thought-bubble" style="border-left:3px solid ${a.color}"><strong style="color:${a.color}">${a.name}:</strong> ${thought}</div>`;
+  }).join('');
+}
+
+function addRandomThought(){
+  const container = document.getElementById('thought-container');
+  if(container.children.length>=3)return;
+  const a = AGENTS[Math.floor(Math.random()*AGENTS.length)];
+  const thoughts = THOUGHTS[a.id]||['Thinking...'];
+  const thought = thoughts[Math.floor(Math.random()*thoughts.length)];
+  const bubble = document.createElement('div');
+  bubble.className='thought-bubble';
+  bubble.innerHTML = `<span class="thought-agent">${a.name}:</span> ${thought}<span class="thought-close" onclick="this.parentElement.remove()">&times;</span>`;
+  container.appendChild(bubble);
+  setTimeout(()=>{if(bubble.parentElement)bubble.remove();},8000);
+}
+
+function logActivity(msg){
+  const now = new Date();
+  const t = String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0')+':'+String(now.getSeconds()).padStart(2,'0');
+  activityLog.unshift({t,msg});
+  if(activityLog.length>40)activityLog.pop();
+  renderActivity();
+}
+
+function renderActivity(){
+  document.getElementById('activity-log').innerHTML = activityLog.map(x=>`
+    <div class="log-item"><span class="log-time">${x.t}</span><span>${x.msg}</span></div>`).join('');
+}
+
+function simulate(){
+  const hourly = STREAMS.reduce((s,x)=>s+x.rev,0);
+  const tick = hourly/1200;
+  totalRev += tick;
+  todayRev += tick;
+  taskCount += Math.floor(Math.random()*4)+1;
+
+  document.getElementById('rev').textContent = '$'+totalRev.toFixed(2);
+  document.getElementById('today-rev').textContent = '$'+todayRev.toFixed(2);
+  document.getElementById('tsk').textContent = taskCount.toLocaleString();
+  document.getElementById('t-total').textContent = '$'+totalRev.toFixed(2);
+  document.getElementById('t-today').textContent = '$'+todayRev.toFixed(2);
+
+  revHistory.push({micro:Math.random()*4+1,pod:Math.random()*6+2,crypto:Math.random()*10+1,survey:Math.random()*3+0.5,testing:Math.random()*5+1});
+  if(revHistory.length>48)revHistory.shift();
+  streamHistory.push({active:Math.random()*60+20,growing:Math.random()*40+10,peak:Math.random()*30+5});
+  if(streamHistory.length>48)streamHistory.shift();
+
+  drawGraphs();
+
+  if(Math.random()>0.4){
+    const seed = ACTIVITY_SEEDS[Math.floor(Math.random()*ACTIVITY_SEEDS.length)];
+    logActivity(seed);
+  }
+
+  AGENTS.forEach(a=>{
+    if(Math.random()>0.9){
+      const statuses = ['working','working','working','idle','break'];
+      a.status = statuses[Math.floor(Math.random()*statuses.length)];
+      if(a.status==='working')a.lastActive=Date.now();
+    }
+  });
+  renderZones();
+  renderCrew();
+}
+
+function decayVitals(){
+  AGENTS.forEach(a=>{
+    a.vitals.hunger = Math.min(100,a.vitals.hunger+1.5);
+    a.vitals.boredom = Math.min(100,a.vitals.boredom+1.2);
+    a.vitals.drive = Math.max(0,a.vitals.drive-0.4);
+    if(a.vitals.hunger>80)a.vitals.health=Math.max(0,a.vitals.health-0.8);
+    if(a.vitals.boredom>70)a.vitals.drive=Math.max(0,a.vitals.drive-1.5);
+    if(a.vitals.drive<30)a.vitals.curiosity=Math.max(0,a.vitals.curiosity-0.5);
+    if(a.status==='break'){a.vitals.health=Math.min(100,a.vitals.health+2);a.vitals.boredom=Math.max(0,a.vitals.boredom-1);}
+  });
+  renderCrew();
+}
+
+function drawGraphs(){
+  drawRevGraph();
+  drawStreamGraph();
+}
+
+function drawRevGraph(){
+  const cvs = document.getElementById('rev-graph'); if(!cvs)return;
+  const ctx = cvs.getContext('2d');
+  const dpr = window.devicePixelRatio||1;
+  const rect = cvs.getBoundingClientRect();
+  cvs.width = rect.width*dpr; cvs.height = rect.height*dpr;
+  ctx.scale(dpr,dpr);
+  const w = rect.width, h = rect.height;
+  ctx.clearRect(0,0,w,h);
+  const pad = 30;
+  const gw = w-pad*2, gh = h-pad*2;
+  const max = Math.max(...revHistory.map(x=>x.micro+x.pod+x.crypto+x.survey+x.testing))*1.2;
+  ctx.strokeStyle = 'rgba(255,255,255,0.05)';
+  ctx.lineWidth = 1;
+  for(let i=0;i<=4;i++){
+    const y = pad+gh*(i/4);
+    ctx.beginPath();ctx.moveTo(pad,y);ctx.lineTo(w-pad,y);ctx.stroke();
+  }
+  const colors = {micro:'#22c55e',pod:'#3b82f6',crypto:'#a855f7',survey:'#f59e0b',testing:'#06b6d4'};
+  const keys = ['micro','pod','crypto','survey','testing'];
+  keys.forEach(key=>{
+    ctx.strokeStyle = colors[key];
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    revHistory.forEach((pt,i)=>{
+      const x = pad+(i/(revHistory.length-1))*gw;
+      const y = pad+gh-(pt[key]/max)*gh;
+      if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);
+    });
+    ctx.stroke();
+    ctx.lineTo(pad+gw,pad+gh);
+    ctx.lineTo(pad,pad+gh);
+    ctx.closePath();
+    ctx.fillStyle = colors[key]+'12';
+    ctx.fill();
+  });
+  ctx.fillStyle = '#555568';
+  ctx.font = '10px sans-serif';
+  ctx.textAlign = 'right';
+  for(let i=0;i<=4;i++){
+    const val = (max*(1-i/4)).toFixed(1);
+    ctx.fillText('$'+val,pad-6,pad+gh*(i/4)+3);
+  }
+}
+
+function drawStreamGraph(){
+  const cvs = document.getElementById('stream-graph'); if(!cvs)return;
+  const ctx = cvs.getContext('2d');
+  const dpr = window.devicePixelRatio||1;
+  const rect = cvs.getBoundingClientRect();
+  cvs.width = rect.width*dpr; cvs.height = rect.height*dpr;
+  ctx.scale(dpr,dpr);
+  const w = rect.width, h = rect.height;
+  ctx.clearRect(0,0,w,h);
+  const pad = 30;
+  const gw = w-pad*2, gh = h-pad*2;
+  const max = 100;
+  ctx.strokeStyle = 'rgba(255,255,255,0.05)';
+  ctx.lineWidth = 1;
+  for(let i=0;i<=4;i++){
+    const y = pad+gh*(i/4);
+    ctx.beginPath();ctx.moveTo(pad,y);ctx.lineTo(w-pad,y);ctx.stroke();
+  }
+  const colors = {active:'#22c55e',growing:'#3b82f6',peak:'#a855f7'};
+  const keys = ['active','growing','peak'];
+  keys.forEach(key=>{
+    ctx.strokeStyle = colors[key];
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    streamHistory.forEach((pt,i)=>{
+      const x = pad+(i/(streamHistory.length-1))*gw;
+      const y = pad+gh-(pt[key]/max)*gh;
+      if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);
+    });
+    ctx.stroke();
+    ctx.fillStyle = colors[key]+'10';
+    ctx.lineTo(pad+gw,pad+gh);ctx.lineTo(pad,pad+gh);ctx.closePath();ctx.fill();
+  });
+  ctx.fillStyle = '#555568';
+  ctx.font = '10px sans-serif';
+  ctx.textAlign = 'right';
+  for(let i=0;i<=4;i++){
+    ctx.fillText(Math.round(100*(1-i/4))+'%',pad-6,pad+gh*(i/4)+3);
+  }
+}
+
+async function fetchCrypto(){
+  try{
+    const res = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana,matic-network,binancecoin&vs_currencies=usd&include_24hr_change=true');
+    const data = await res.json();
+    updateCrypto('btc',data.bitcoin);
+    updateCrypto('eth',data.ethereum);
+    updateCrypto('sol',data.solana);
+    updateCrypto('matic',data['matic-network']);
+    updateCrypto('bnb',data.binancecoin);
+  }catch(e){
+    updateCrypto('btc',{usd:64230,usd_24h_change:2.4});
+    updateCrypto('eth',{usd:3450,usd_24h_change:-1.2});
+    updateCrypto('sol',{usd:142,usd_24h_change:5.7});
+    updateCrypto('matic',{usd:0.52,usd_24h_change:0.8});
+    updateCrypto('bnb',{usd:585,usd_24h_change:1.5});
+  }
+}
+
+function updateCrypto(id,data){
+  if(!data)return;
+  const price = data.usd;
+  const change = data.usd_24h_change;
+  const elP = document.getElementById(id+'-price');
+  const elC = document.getElementById(id+'-change');
+  if(elP)elP.textContent = '$'+price.toLocaleString(undefined,{minimumFractionDigits:price<1?4:0,maximumFractionDigits:price<1?4:0});
+  if(elC){
+    elC.textContent = (change>=0?'+':'')+change.toFixed(2)+'%';
+    elC.className = 'crypto-change '+(change>=0?'crypto-up':'crypto-down');
+  }
+}
+
+function processInventory(input){
+  const files = input.files;
+  const queue = document.getElementById('inv-queue');
+  for(let f of files){
+    const reader = new FileReader();
+    reader.onload = e=>{
+      const div = document.createElement('div');
+      div.className = 'platform-item';
+      div.innerHTML = `<img src="${e.target.result}" style="width:40px;height:40px;border-radius:6px;object-fit:cover;background:var(--card)"><div class="platform-info"><div class="platform-name">${f.name}</div><div class="platform-pending">Processing by Lens...</div></div>`;
+      queue.appendChild(div);
+      setTimeout(()=>{
+        div.querySelector('.platform-pending').textContent = 'Listed on eBay, Mercari, Poshmark, Etsy';
+        div.querySelector('.platform-pending').style.color = 'var(--green)';
+        logActivity(`📸 Lens listed ${f.name} on 4 platforms`);
+      },2000+Math.random()*2000);
+    };
+    reader.readAsDataURL(f);
+  }
+  input.value='';
+}
+
+function showTab(n){
+  document.querySelectorAll('.tab-btn').forEach((b,i)=>b.classList.toggle('active',i===n));
+  document.querySelectorAll('.tab-panel').forEach((p,i)=>p.classList.toggle('active',i===n));
+  if(n===2||n===3)setTimeout(drawGraphs,50);
+}
+
+init();
+</script>
+</body>
+</html>
