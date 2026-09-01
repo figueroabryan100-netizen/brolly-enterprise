@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <title>Brolly Enterprise — 24/7 Command</title>
 <style>
-:root{--bg:#050508;--card:#0f0f14;--border:#1e1e2e;--text:#e2e2e8;--text2:#8b8b9e;--text3:#555568;--blue:#3b82f6;--red:#ef4444;--green:#22c55e;--purple:#a855f7;--gray:#6b7280;--gold:#f59e0b;--cyan:#06b6d4;--pink:#ec4899;--orange:#f97316;--teal:#14b8a6}
+:root{--bg:#050508;--card:#0f0f14;--border:#1e1e2e;--text:#e2e2e8;--text2:#8b8b9e;--text3:#555568;--blue:#3b82f6;--red:#ef4444;--green:#22c55e;--purple:#a855f7;--gray:#6b7280;--gold:#f59e0b;--cyan:#06b6d4;--pink:#ec4899;--orange:#f97316;--teal:#14b8a6;--indigo:#6366f1;--yellow:#eab308;--amber:#d97706}
 *{box-sizing:border-box;margin:0;padding:0}body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--text);padding:12px;line-height:1.4;min-height:100vh;-webkit-text-size-adjust:100%}
 #app{max-width:960px;margin:0 auto}
 header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:10px}
@@ -65,7 +65,6 @@ h1{font-size:22px;font-weight:700;letter-spacing:-.5px;background:linear-gradien
 .log-item{padding:10px 0;border-bottom:1px solid var(--border);font-size:12px}
 .log-item:last-child{border-bottom:none}
 .log-time{color:var(--text3);font-size:10px;margin-right:8px;font-variant-numeric:tabular-nums}
-.log-agent{font-weight:600}
 .chat-box{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:12px;height:200px;overflow-y:auto;font-size:12px}
 .chat-line{margin-bottom:8px}
 .chat-name{font-weight:600}
@@ -88,492 +87,151 @@ h1{font-size:22px;font-weight:700;letter-spacing:-.5px;background:linear-gradien
 .bank-status{font-size:11px;color:var(--text3)}
 .bank-btn{font-size:11px;color:var(--blue);background:rgba(59,130,246,.1);border:1px solid rgba(59,130,246,.2);padding:4px 10px;border-radius:6px;cursor:pointer}
 .max-badge{font-size:9px;color:var(--gold);background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.2);padding:2px 6px;border-radius:4px;margin-left:6px;text-transform:uppercase;letter-spacing:.5px}
+.upload-zone{border:2px dashed var(--border);border-radius:12px;padding:16px;text-align:center;cursor:pointer;transition:border-color .2s}
+.upload-zone:hover{border-color:var(--blue)}
+.upload-zone input{display:none}
+.kalshi-timer{font-size:24px;font-weight:700;color:var(--gold);font-variant-numeric:tabular-nums}
+.balance-input{width:100%;background:var(--bg);border:1px solid var(--border);color:var(--text);padding:8px 10px;border-radius:8px;font-size:13px;font-family:inherit}
+.balance-input:focus{outline:none;border-color:var(--blue)}
+.inv-item{display:flex;align-items:center;gap:10px;padding:8px;background:var(--bg);border-radius:8px;margin-bottom:6px;border:1px solid var(--border)}
+.inv-thumb{width:40px;height:40px;border-radius:6px;object-fit:cover;background:var(--card)}
+.inv-info{flex:1}
+.inv-title{font-size:11px;font-weight:600}
+.inv-meta{font-size:9px;color:var(--text3)}
 </style>
 </head>
 <body>
 <div id="app">
-  <header>
-    <div>
-      <h1>Brolly Enterprise</h1>
-      <div class="sub">24/7/365 Autonomous Profit System</div>
-    </div>
-    <div style="text-align:right">
-      <div class="live-badge"><span class="live-dot"></span>ALL SYSTEMS LIVE</div>
-      <div class="metrics">
-        <div>Time: <strong id="clk">08:00</strong></div>
-        <div>Total: <strong id="rev">$0.00</strong></div>
-        <div>Today: <strong id="today-rev">$0.00</strong></div>
-        <div>Tasks: <strong id="tsk">0</strong></div>
-      </div>
-    </div>
-  </header>
 
-  <div class="profit-boost">
-    <div class="profit-boost-text">PROFIT AMPLIFIER: MAXIMUM OUTPUT</div>
-    <div class="profit-boost-sub">All agents operating at peak efficiency — every niche, every stream, every second</div>
+<header>
+  <div>
+    <h1>Brolly Enterprise</h1>
+    <div class="sub">24/7/365 Autonomous Profit System</div>
   </div>
-
-  <div class="tabs">
-    <button class="tab-btn active" onclick="showTab(0)">World</button>
-    <button class="tab-btn" onclick="showTab(1)">Crew</button>
-    <button class="tab-btn" onclick="showTab(2)">Streams</button>
-    <button class="tab-btn" onclick="showTab(3)">Treasury</button>
-    <button class="tab-btn" onclick="showTab(4)">Activity</button>
-  </div>
-
-  <!-- WORLD TAB -->
-  <div class="tab-panel active" id="tab0">
-    <div class="section">
-      <div class="section-title" style="--section-color:var(--green)">World Map</div>
-      <div class="zone-grid">
-        <div class="zone">
-          <div class="zone-name"><span class="zone-icon">🏠</span>Residential District</div>
-          <div class="facilities"><span class="tag">Smart Houses</span><span class="tag">Sleep Pods</span><span class="tag">Kitchen</span><span class="tag">Lounge</span><span class="tag">Home Theater</span></div>
-          <div class="agents">
-            <div class="agent-chip"><div class="agent-dot" style="background:#3b82f6">MV</div><div><div class="agent-chip-name">Maverick</div><div class="agent-chip-task">Scanning niches</div></div></div>
-            <div class="agent-chip"><div class="agent-dot" style="background:#ef4444">CT</div><div><div class="agent-chip-name">Catalyst</div><div class="agent-chip-task">Scripting content</div></div></div>
-            <div class="agent-chip"><div class="agent-dot" style="background:#22c55e">CP</div><div><div class="agent-chip-name">Cipher</div><div class="agent-chip-task">Deploying bots</div></div></div>
-            <div class="agent-chip"><div class="agent-dot" style="background:#a855f7">VC</div><div><div class="agent-chip-name">Vector</div><div class="agent-chip-task">Arbitrage scan</div></div></div>
-            <div class="agent-chip"><div class="agent-dot" style="background:#6b7280">NX</div><div><div class="agent-chip-name">Nexus</div><div class="agent-chip-task">Community growth</div></div></div>
-            <div class="agent-chip"><div class="agent-dot" style="background:#f59e0b">AR</div><div><div class="agent-chip-name">Archon <span class="max-badge">MAX</span></div><div class="agent-chip-task">R&D Command</div></div></div>
-            <div class="agent-chip"><div class="agent-dot" style="background:#f97316">WA</div><div><div class="agent-chip-name">Watcher</div><div class="agent-chip-task">Video & surveys</div></div></div>
-            <div class="agent-chip"><div class="agent-dot" style="background:#06b6d4">SC</div><div><div class="agent-chip-name">Scribe</div><div class="agent-chip-task">Writing reviews</div></div></div>
-          </div>
-        </div>
-        <div class="zone">
-          <div class="zone-name"><span class="zone-icon">🏢</span>Business District</div>
-          <div class="facilities"><span class="tag">R&D Lab</span><span class="tag">Code Workshop</span><span class="tag">Server Farm</span><span class="tag">Strategy Office</span><span class="tag">Product Studio</span><span class="tag">Micro-Task Floor</span></div>
-          <div class="agents">
-            <div class="agent-chip"><div class="agent-dot" style="background:#14b8a6">PR</div><div><div class="agent-chip-name">Prospect</div><div class="agent-chip-task">Finding sign-up bonuses</div></div></div>
-            <div class="agent-chip"><div class="agent-dot" style="background:#ec4899">SE</div><div><div class="agent-chip-name">Sentry</div><div class="agent-chip-task">Testing apps & products</div></div></div>
-          </div>
-        </div>
-        <div class="zone">
-          <div class="zone-name"><span class="zone-icon">🌳</span>Recreation Park</div>
-          <div class="facilities"><span class="tag">Neural Park</span><span class="tag">Gym</span><span class="tag">Cafe</span><span class="tag">Game Arena</span><span class="tag">Meditation Pods</span></div>
-          <div class="agents">
-            <div class="agent-chip"><div class="agent-dot" style="background:#f97316">WA</div><div><div class="agent-chip-name">Watcher</div><div class="agent-chip-task">Ad-watching break</div></div></div>
-          </div>
-        </div>
-        <div class="zone">
-          <div class="zone-name"><span class="zone-icon">🎯</span>Command Center</div>
-          <div class="facilities"><span class="tag">The Hub</span><span class="tag">Data Vault</span><span class="tag">War Room</span><span class="tag">Treasury</span><span class="tag">Secure Comms</span></div>
-          <div class="agents">
-            <div class="agent-chip"><div class="agent-dot" style="background:#f59e0b">AR</div><div><div class="agent-chip-name">Archon <span class="max-badge">MAX</span></div><div class="agent-chip-task">Directing all R&D ops</div></div></div>
-            <div class="agent-chip"><div class="agent-dot" style="background:#6b7280">NX</div><div><div class="agent-chip-name">Nexus</div><div class="agent-chip-task">Encrypted briefings</div></div></div>
-          </div>
-        </div>
-        <div class="zone">
-          <div class="zone-name"><span class="zone-icon">🎭</span>Entertainment Lounge</div>
-          <div class="facilities"><span class="tag">Comedy Central</span><span class="tag">Netflix Deck</span><span class="tag">YouTube Theater</span><span class="tag">Podcast Studio</span><span class="tag">Social Lounge</span></div>
-          <div class="agents">
-            <div class="agent-chip"><div class="agent-dot" style="background:#ef4444">CT</div><div><div class="agent-chip-name">Catalyst</div><div class="agent-chip-task">Rendering faceless videos</div></div></div>
-          </div>
-        </div>
-        <div class="zone">
-          <div class="zone-name"><span class="zone-icon">💰</span>Profit Floor</div>
-          <div class="facilities"><span class="tag">Print-on-Demand</span><span class="tag">DropShipping</span><span class="tag">Crypto Trading</span><span class="tag">Micro-Task Hub</span><span class="tag">Survey Station</span><span class="tag">Review Desk</span></div>
-          <div class="agents">
-            <div class="agent-chip"><div class="agent-dot" style="background:#3b82f6">MV</div><div><div class="agent-chip-name">Maverick</div><div class="agent-chip-task">Sourcing products</div></div></div>
-            <div class="agent-chip"><div class="agent-dot" style="background:#22c55e">CP</div><div><div class="agent-chip-name">Cipher</div><div class="agent-chip-task">Running auto-bots</div></div></div>
-            <div class="agent-chip"><div class="agent-dot" style="background:#a855f7">VC</div><div><div class="agent-chip-name">Vector</div><div class="agent-chip-task">Executing trades</div></div></div>
-            <div class="agent-chip"><div class="agent-dot" style="background:#06b6d4">SC</div><div><div class="agent-chip-name">Scribe</div><div class="agent-chip-task">Batch writing reviews</div></div></div>
-            <div class="agent-chip"><div class="agent-dot" style="background:#f97316">WA</div><div><div class="agent-chip-name">Watcher</div><div class="agent-chip-task">Auto-watching ad rolls</div></div></div>
-            <div class="agent-chip"><div class="agent-dot" style="background:#ec4899">SE</div><div><div class="agent-chip-name">Sentry</div><div class="agent-chip-task">QA testing apps</div></div></div>
-            <div class="agent-chip"><div class="agent-dot" style="background:#14b8a6">PR</div><div><div class="agent-chip-name">Prospect</div><div class="agent-chip-task">Claiming bonuses</div></div></div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="section">
-      <div class="section-title" style="--section-color:var(--purple)">Agent Intermingle — Live Chat</div>
-      <div class="chat-box" id="chat-box">
-        <div class="chat-line"><span class="log-time">08:00</span><span class="chat-name" style="color:var(--gold)">Archon:</span> All micro-task channels are now live. Watcher, start the ad-roll queue. Scribe, fire up the review pipelines.</div>
-        <div class="chat-line"><span class="log-time">08:01</span><span class="chat-name" style="color:var(--orange)">Watcher:</span> Hideout.tv and Loot.tv streams running. Swagbucks survey router connected. Estimated $0.40/hr passive.</div>
-        <div class="chat-line"><span class="log-time">08:02</span><span class="chat-name" style="color:var(--cyan)">Scribe:</span> Amazon review queue loaded. 12 products ready. UserTesting profile optimized. Ready to write.</div>
-        <div class="chat-line"><span class="log-time">08:03</span><span class="chat-name" style="color:var(--pink)">Sentry:</span> BetaTesting and TestBirds accounts active. 3 app tests in queue. Pinecone Research dashboard green.</div>
-        <div class="chat-line"><span class="log-time">08:04</span><span class="chat-name" style="color:var(--teal)">Prospect:</span> Found $75 Chase checking bonus, $50 SoFi referral, and 3 crypto faucet drips. Sign-up queue ready.</div>
-        <div class="chat-line"><span class="log-time">08:05</span><span class="chat-name" style="color:var(--blue)">Maverick:</span> Great. I'm routing POD niches to Catalyst. Cipher, keep the bots running.</div>
-      </div>
+  <div style="text-align:right">
+    <div class="live-badge"><span class="live-dot"></span>ALL SYSTEMS LIVE</div>
+    <div class="metrics">
+      <div>Time: <strong id="clk">08:00</strong></div>
+      <div>Total: <strong id="rev">$0.00</strong></div>
+      <div>Today: <strong id="today-rev">$0.00</strong></div>
+      <div>Tasks: <strong id="tsk">0</strong></div>
     </div>
   </div>
+</header>
 
-  <!-- CREW TAB -->
-  <div class="tab-panel" id="tab1">
-    <div class="section">
-      <div class="section-title" style="--section-color:var(--blue)">Agent Crew</div>
-      <div class="crew-grid">
-        <div class="crew-card">
-          <div class="crew-header">
-            <div class="crew-avatar" style="background:#3b82f6">MV</div>
-            <div class="crew-info"><div class="crew-name">Maverick</div><div class="crew-role">Market Maven</div></div>
-            <div class="crew-status">● Finding niches</div>
-          </div>
-          <div class="crew-stats">
-            <div class="stat">Energy <strong>94%</strong></div><div class="stat">Marketing <strong>88%</strong></div>
-            <div class="stat">Research <strong>95%</strong></div><div class="stat">Sales <strong>82%</strong></div>
-          </div>
-          <div class="stat-bar"><div class="stat-bar-fill" style="width:94%;background:var(--blue)"></div></div>
-          <div class="crew-task">Scanning: developer-motivation POD niche, dropship suppliers</div>
-          <div class="crew-rev" id="cr1">$0.00</div>
-        </div>
-        <div class="crew-card">
-          <div class="crew-header">
-            <div class="crew-avatar" style="background:#ef4444">CT</div>
-            <div class="crew-info"><div class="crew-name">Catalyst</div><div class="crew-role">Content Catalyst</div></div>
-            <div class="crew-status">● Writing scripts</div>
-          </div>
-          <div class="crew-stats">
-            <div class="stat">Energy <strong>91%</strong></div><div class="stat">SEO <strong>90%</strong></div>
-            <div class="stat">Writing <strong>96%</strong></div><div class="stat">Social <strong>85%</strong></div>
-          </div>
-          <div class="stat-bar"><div class="stat-bar-fill" style="width:91%;background:var(--red)"></div></div>
-          <div class="crew-task">Generating: 50 POD designs + faceless YouTube scripts</div>
-          <div class="crew-rev" id="cr2">$0.00</div>
-        </div>
-        <div class="crew-card">
-          <div class="crew-header">
-            <div class="crew-avatar" style="background:#22c55e">CP</div>
-            <div class="crew-info"><div class="crew-name">Cipher</div><div class="crew-role">Code Crafter</div></div>
-            <div class="crew-status">● Deploying bots</div>
-          </div>
-          <div class="crew-stats">
-            <div class="stat">Energy <strong>97%</strong></div><div class="stat">Coding <strong>98%</strong></div>
-            <div class="stat">Automation <strong>94%</strong></div><div class="stat">DevOps <strong>79%</strong></div>
-          </div>
-          <div class="stat-bar"><div class="stat-bar-fill" style="width:97%;background:var(--green)"></div></div>
-          <div class="crew-task">Deploying: Printful auto-uploader + scraper bots + survey routers</div>
-          <div class="crew-rev" id="cr3">$0.00</div>
-        </div>
-        <div class="crew-card">
-          <div class="crew-header">
-            <div class="crew-avatar" style="background:#a855f7">VC</div>
-            <div class="crew-info"><div class="crew-name">Vector</div><div class="crew-role">Data Drifter</div></div>
-            <div class="crew-status">● Trading crypto</div>
-          </div>
-          <div class="crew-stats">
-            <div class="stat">Energy <strong>93%</strong></div><div class="stat">Trading <strong>87%</strong></div>
-            <div class="stat">Analysis <strong>96%</strong></div><div class="stat">Math <strong>92%</strong></div>
-          </div>
-          <div class="stat-bar"><div class="stat-bar-fill" style="width:93%;background:var(--purple)"></div></div>
-          <div class="crew-task">Executing: BTC arbitrage + sentiment analysis</div>
-          <div class="crew-rev" id="cr4">$0.00</div>
-        </div>
-        <div class="crew-card">
-          <div class="crew-header">
-            <div class="crew-avatar" style="background:#6b7280">NX</div>
-            <div class="crew-info"><div class="crew-name">Nexus</div><div class="crew-role">Community Connector</div></div>
-            <div class="crew-status">● Closing deals</div>
-          </div>
-          <div class="crew-stats">
-            <div class="stat">Energy <strong>89%</strong></div><div class="stat">Networking <strong>97%</strong></div>
-            <div class="stat">Deals <strong>90%</strong></div><div class="stat">Support <strong>84%</strong></div>
-          </div>
-          <div class="stat-bar"><div class="stat-bar-fill" style="width:89%;background:var(--gray)"></div></div>
-          <div class="crew-task">Negotiating: Micro-influencer + affiliate partnerships</div>
-          <div class="crew-rev" id="cr5">$0.00</div>
-        </div>
-        <!-- ARCHON -->
-        <div class="crew-card" style="border-color:var(--gold);background:linear-gradient(135deg,rgba(245,158,11,.05),transparent)">
-          <div class="crew-header">
-            <div class="crew-avatar" style="background:#f59e0b">AR</div>
-            <div class="crew-info"><div class="crew-name">Archon <span class="max-badge">Head of R&D</span></div><div class="crew-role">Research & Development Director</div></div>
-            <div class="crew-status" style="color:var(--gold)">● COMMANDING</div>
-          </div>
-          <div class="crew-stats">
-            <div class="stat">Intelligence <strong>99%</strong></div><div class="stat">Research <strong>99%</strong></div>
-            <div class="stat">Strategy <strong>99%</strong></div><div class="stat">Execution <strong>99%</strong></div>
-          </div>
-          <div class="stat-bar"><div class="stat-bar-fill" style="width:99%;background:var(--gold)"></div></div>
-          <div class="crew-task">Directing: All micro-profit discovery, sign-up automation, review pipelines, survey routing, app testing queues. Has unlimited resource access.</div>
-          <div class="crew-rev" id="cr6">$0.00</div>
-        </div>
-        <!-- WATCHER -->
-        <div class="crew-card">
-          <div class="crew-header">
-            <div class="crew-avatar" style="background:#f97316">WA</div>
-            <div class="crew-info"><div class="crew-name">Watcher</div><div class="crew-role">Passive Income Scout</div></div>
-            <div class="crew-status" style="color:var(--orange)">● Watching ads</div>
-          </div>
-          <div class="crew-stats">
-            <div class="stat">Energy <strong>87%</strong></div><div class="stat">Patience <strong>96%</strong></div>
-            <div class="stat">Speed <strong>92%</strong></div><div class="stat">Uptime <strong>98%</strong></div>
-          </div>
-          <div class="stat-bar"><div class="stat-bar-fill" style="width:92%;background:var(--orange)"></div></div>
-          <div class="crew-task">Running: Hideout.tv, Loot.tv, Swagbucks videos, InboxDollars TV, AdWally queues</div>
-          <div class="crew-rev" id="cr7">$0.00</div>
-        </div>
-        <!-- SCRIBE -->
-        <div class="crew-card">
-          <div class="crew-header">
-            <div class="crew-avatar" style="background:#06b6d4">SC</div>
-            <div class="crew-info"><div class="crew-name">Scribe</div><div class="crew-role">Review & Survey Writer</div></div>
-            <div class="crew-status" style="color:var(--cyan)">● Writing</div>
-          </div>
-          <div class="crew-stats">
-            <div class="stat">Energy <strong>90%</strong></div><div class="stat">Writing <strong>94%</strong></div>
-            <div class="stat">Speed <strong>91%</strong></div><div class="stat">Detail <strong>89%</strong></div>
-          </div>
-          <div class="stat-bar"><div class="stat-bar-fill" style="width:91%;background:var(--cyan)"></div></div>
-          <div class="crew-task">Writing: Amazon Vine reviews, UserTesting feedback, Survey Junkie responses, Google Opinion Rewards</div>
-          <div class="crew-rev" id="cr8">$0.00</div>
-        </div>
-        <!-- SENTRY -->
-        <div class="crew-card">
-          <div class="crew-header">
-            <div class="crew-avatar" style="background:#ec4899">SE</div>
-            <div class="crew-info"><div class="crew-name">Sentry</div><div class="crew-role">App & Product Tester</div></div>
-            <div class="crew-status" style="color:var(--pink)">● Testing</div>
-          </div>
-          <div class="crew-stats">
-            <div class="stat">Energy <strong>88%</strong></div><div class="stat">QA <strong>95%</strong></div>
-            <div class="stat">Tech <strong>93%</strong></div><div class="stat">Detail <strong>97%</strong></div>
-          </div>
-          <div class="stat-bar"><div class="stat-bar-fill" style="width:93%;background:var(--pink)"></div></div>
-          <div class="crew-task">Testing: UserTesting $10 tests, BetaTesting apps, Pinecone Research products, PlaytestCloud games</div>
-          <div class="crew-rev" id="cr9">$0.00</div>
-        </div>
-        <!-- PROSPECT -->
-        <div class="crew-card">
-          <div class="crew-header">
-            <div class="crew-avatar" style="background:#14b8a6">PR</div>
-            <div class="crew-info"><div class="crew-name">Prospect</div><div class="crew-role">Bonus & Deal Hunter</div></div>
-            <div class="crew-status" style="color:var(--teal)">● Hunting deals</div>
-          </div>
-          <div class="crew-stats">
-            <div class="stat">Energy <strong>86%</strong></div><div class="stat">Research <strong>94%</strong></div>
-            <div class="stat">Speed <strong>90%</strong></div><div class="stat">Deals <strong>96%</strong></div>
-          </div>
-          <div class="stat-bar"><div class="stat-bar-fill" style="width:92%;background:var(--teal)"></div></div>
-          <div class="crew-task">Finding: Bank sign-up bonuses, crypto faucets, referral programs, cashback portals, free-trial arbitrage</div>
-          <div class="crew-rev" id="cr10">$0.00</div>
+<div class="profit-boost">
+  <div class="profit-boost-text">PROFIT AMPLIFIER: MAXIMUM OUTPUT</div>
+  <div class="profit-boost-sub">All agents operating at peak efficiency — every niche, every stream, every second</div>
+</div>
+
+<div class="tabs">
+  <button class="tab-btn active" onclick="showTab(0)">World</button>
+  <button class="tab-btn" onclick="showTab(1)">Crew</button>
+  <button class="tab-btn" onclick="showTab(2)">Streams</button>
+  <button class="tab-btn" onclick="showTab(3)">Treasury</button>
+  <button class="tab-btn" onclick="showTab(4)">Activity</button>
+</div>
+
+<!-- WORLD TAB -->
+<div class="tab-panel active" id="tab0">
+  <div class="section">
+    <div class="section-title" style="--section-color:var(--green)">World Map</div>
+    <div class="zone-grid">
+
+      <div class="zone">
+        <div class="zone-name"><span class="zone-icon">🏠</span>Residential District</div>
+        <div class="facilities"><span class="tag">Smart Houses</span><span class="tag">Sleep Pods</span><span class="tag">Kitchen</span><span class="tag">Lounge</span><span class="tag">Home Theater</span></div>
+        <div class="agents">
+          <div class="agent-chip"><div class="agent-dot" style="background:#3b82f6">MV</div><div><div class="agent-chip-name">Maverick</div><div class="agent-chip-task">Scanning niches</div></div></div>
+          <div class="agent-chip"><div class="agent-dot" style="background:#ef4444">CT</div><div><div class="agent-chip-name">Catalyst</div><div class="agent-chip-task">Scripting content</div></div></div>
+          <div class="agent-chip"><div class="agent-dot" style="background:#22c55e">CP</div><div><div class="agent-chip-name">Cipher</div><div class="agent-chip-task">Deploying bots</div></div></div>
+          <div class="agent-chip"><div class="agent-dot" style="background:#a855f7">VC</div><div><div class="agent-chip-name">Vector</div><div class="agent-chip-task">Arbitrage scan</div></div></div>
+          <div class="agent-chip"><div class="agent-dot" style="background:#6b7280">NX</div><div><div class="agent-chip-name">Nexus</div><div class="agent-chip-task">Community growth</div></div></div>
+          <div class="agent-chip"><div class="agent-dot" style="background:#f59e0b">AR</div><div><div class="agent-chip-name">Archon <span class="max-badge">MAX</span></div><div class="agent-chip-task">R&D Command</div></div></div>
+          <div class="agent-chip"><div class="agent-dot" style="background:#f97316">WA</div><div><div class="agent-chip-name">Watcher</div><div class="agent-chip-task">Video & surveys</div></div></div>
+          <div class="agent-chip"><div class="agent-dot" style="background:#06b6d4">SC</div><div><div class="agent-chip-name">Scribe</div><div class="agent-chip-task">Writing reviews</div></div></div>
         </div>
       </div>
+
+      <div class="zone">
+        <div class="zone-name"><span class="zone-icon">🏢</span>Business District</div>
+        <div class="facilities"><span class="tag">R&D Lab</span><span class="tag">Code Workshop</span><span class="tag">Server Farm</span><span class="tag">Strategy Office</span><span class="tag">Product Studio</span><span class="tag">Micro-Task Floor</span></div>
+        <div class="agents">
+          <div class="agent-chip"><div class="agent-dot" style="background:#14b8a6">PR</div><div><div class="agent-chip-name">Prospect</div><div class="agent-chip-task">Finding sign-up bonuses</div></div></div>
+          <div class="agent-chip"><div class="agent-dot" style="background:#ec4899">SE</div><div><div class="agent-chip-name">Sentry</div><div class="agent-chip-task">Testing apps & products</div></div></div>
+          <div class="agent-chip"><div class="agent-dot" style="background:#6366f1">ST</div><div><div class="agent-chip-name">Scout</div><div class="agent-chip-task">Finding flip deals</div></div></div>
+        </div>
+      </div>
+
+      <div class="zone">
+        <div class="zone-name"><span class="zone-icon">📸</span>Photo Studio & Listing Lab</div>
+        <div class="facilities"><span class="tag">Light Box</span><span class="tag">Backdrop</span><span class="tag">Auto-Lister</span><span class="tag">Price Scanner</span></div>
+        <div class="agents">
+          <div class="agent-chip"><div class="agent-dot" style="background:#eab308">LN</div><div><div class="agent-chip-name">Lens</div><div class="agent-chip-task">Shooting & listing items</div></div></div>
+        </div>
+        <div style="margin-top:10px">
+          <div class="upload-zone" onclick="document.getElementById('inv-upload').click()">
+            <div style="font-size:24px;margin-bottom:6px">📤</div>
+            <div style="font-size:12px;font-weight:600">Tap to upload item photos</div>
+            <div style="font-size:10px;color:var(--text3);margin-top:4px">Lens will auto-generate listings</div>
+            <input type="file" id="inv-upload" multiple accept="image/*" onchange="processInventory(this)">
+          </div>
+          <div id="inv-queue" style="margin-top:10px"></div>
+        </div>
+      </div>
+
+      <div class="zone">
+        <div class="zone-name"><span class="zone-icon">📦</span>Fulfillment Center</div>
+        <div class="facilities"><span class="tag" style="color:var(--green);border-color:var(--green)">Label Printer: ONLINE</span><span class="tag">Boxes: 12</span><span class="tag">Tape Station</span><span class="tag">Scale</span><span class="tag">Shipping Station</span></div>
+        <div class="agents">
+          <div class="agent-chip"><div class="agent-dot" style="background:#d97706">CO</div><div><div class="agent-chip-name">Courier</div><div class="agent-chip-task">Printing labels & shipping</div></div></div>
+        </div>
+        <div style="margin-top:10px;padding:10px;background:var(--bg);border-radius:8px;font-size:11px;color:var(--text2)">
+          <strong style="color:var(--amber)">Status:</strong> Ready for physical ops. Scout finds deals → Ship to this address → Lens photos/lists → Courier packs & ships. Label printer warmed up.
+        </div>
+      </div>
+
+      <div class="zone">
+        <div class="zone-name"><span class="zone-icon">🎯</span>Command Center</div>
+        <div class="facilities"><span class="tag">The Hub</span><span class="tag">Data Vault</span><span class="tag">War Room</span><span class="tag">Treasury</span><span class="tag">Secure Comms</span></div>
+        <div class="agents">
+          <div class="agent-chip"><div class="agent-dot" style="background:#f59e0b">AR</div><div><div class="agent-chip-name">Archon <span class="max-badge">MAX</span></div><div class="agent-chip-task">Directing all R&D ops</div></div></div>
+          <div class="agent-chip"><div class="agent-dot" style="background:#6b7280">NX</div><div><div class="agent-chip-name">Nexus</div><div class="agent-chip-task">Encrypted briefings</div></div></div>
+        </div>
+      </div>
+
+      <div class="zone">
+        <div class="zone-name"><span class="zone-icon">💰</span>Profit Floor</div>
+        <div class="facilities"><span class="tag">Print-on-Demand</span><span class="tag">DropShipping</span><span class="tag">Crypto Trading</span><span class="tag">Micro-Task Hub</span><span class="tag">Survey Station</span><span class="tag">Review Desk</span><span class="tag">Kalshi Terminal</span></div>
+        <div class="agents">
+          <div class="agent-chip"><div class="agent-dot" style="background:#3b82f6">MV</div><div><div class="agent-chip-name">Maverick</div><div class="agent-chip-task">Sourcing products</div></div></div>
+          <div class="agent-chip"><div class="agent-dot" style="background:#22c55e">CP</div><div><div class="agent-chip-name">Cipher</div><div class="agent-chip-task">Running auto-bots</div></div></div>
+          <div class="agent-chip"><div class="agent-dot" style="background:#a855f7">VC</div><div><div class="agent-chip-name">Vector</div><div class="agent-chip-task">Executing trades</div></div></div>
+          <div class="agent-chip"><div class="agent-dot" style="background:#06b6d4">SC</div><div><div class="agent-chip-name">Scribe</div><div class="agent-chip-task">Batch writing reviews</div></div></div>
+          <div class="agent-chip"><div class="agent-dot" style="background:#f97316">WA</div><div><div class="agent-chip-name">Watcher</div><div class="agent-chip-task">Auto-watching ad rolls</div></div></div>
+          <div class="agent-chip"><div class="agent-dot" style="background:#ec4899">SE</div><div><div class="agent-chip-name">Sentry</div><div class="agent-chip-task">QA testing apps</div></div></div>
+          <div class="agent-chip"><div class="agent-dot" style="background:#14b8a6">PR</div><div><div class="agent-chip-name">Prospect</div><div class="agent-chip-task">Claiming bonuses</div></div></div>
+          <div class="agent-chip"><div class="agent-dot" style="background:#6366f1">ST</div><div><div class="agent-chip-name">Scout</div><div class="agent-chip-task">Scanning eBay/FB deals</div></div></div>
+          <div class="agent-chip"><div class="agent-dot" style="background:#eab308">LN</div><div><div class="agent-chip-name">Lens</div><div class="agent-chip-task">Photographing inventory</div></div></div>
+          <div class="agent-chip"><div class="agent-dot" style="background:#d97706">CO</div><div><div class="agent-chip-name">Courier</div><div class="agent-chip-task">Packing orders</div></div></div>
+        </div>
+      </div>
+
     </div>
   </div>
 
-  <!-- STREAMS TAB -->
-  <div class="tab-panel" id="tab2">
-    <div class="section">
-      <div class="section-title" style="--section-color:var(--green)">Revenue Streams</div>
-
-      <div class="stream-item"><div class="stream-icon">👕</div><div class="stream-info"><div class="stream-name">Print-on-Demand</div><div class="stream-desc">Auto-generate designs, upload to Printful/Printify, sell via Etsy + TikTok Shop</div><div class="stream-status">Status: Ready — awaiting API keys</div></div><div class="stream-rev" id="s1">$0.00</div></div>
-
-      <div class="stream-item"><div class="stream-icon">📦</div><div class="stream-info"><div class="stream-name">DropShipping</div><div class="stream-desc">AliExpress → Shopify store. Auto-fulfill orders. 40% margins on accessories</div><div class="stream-status">Status: Supplier found — no MOQ</div></div><div class="stream-rev" id="s2">$0.00</div></div>
-
-      <div class="stream-item"><div class="stream-icon">₿</div><div class="stream-info"><div class="stream-name">Crypto Arbitrage</div><div class="stream-desc">Cross-exchange price gaps. Auto-buy low, sell high. 1-3% per trade</div><div class="stream-status">Status: Scanning Binance/Coinbase</div></div><div class="stream-rev" id="s3">$0.00</div></div>
-
-      <div class="stream-item"><div class="stream-icon">📈</div><div class="stream-info"><div class="stream-name">Stock Micro-Trading</div><div class="stream-desc">Alpha signals from Reddit + news. Paper trade first, then execute</div><div class="stream-status">Status: Finnhub API connected</div></div><div class="stream-rev" id="s4">$0.00</div></div>
-
-      <div class="stream-item"><div class="stream-icon">🎰</div><div class="stream-info"><div class="stream-name">Prediction Markets</div><div class="stream-desc">Polymarket + Kalshi. Bet on events with data-backed probabilities</div><div class="stream-status">Status: Model training</div></div><div class="stream-rev" id="s5">$0.00</div></div>
-
-      <div class="stream-item"><div class="stream-icon">🎬</div><div class="stream-info"><div class="stream-name">Faceless Videos</div><div class="stream-desc">AI-generated scripts → voiceover → stock footage. Monetize via YouTube ads</div><div class="stream-status">Status: 3 videos in production</div></div><div class="stream-rev" id="s6">$0.00</div></div>
-
-      <div class="stream-item"><div class="stream-icon">📝</div><div class="stream-info"><div class="stream-name">SEO Blog Network</div><div class="stream-desc">Auto-write articles from Reddit trends. Rank on Google. Ad revenue + affiliate</div><div class="stream-status">Status: 12 articles published</div></div><div class="stream-rev" id="s7">$0.00</div></div>
-
-      <div class="stream-item"><div class="stream-icon">🤝</div><div class="stream-info"><div class="stream-name">Secured Contracts</div><div class="stream-desc">Find freelance gigs, auto-bid, execute deliverables. Upwork + Fiverr + direct</div><div class="stream-status">Status: 2 bids submitted</div></div><div class="stream-rev" id="s8">$0.00</div></div>
-
-      <div class="stream-item"><div class="stream-icon">🎁</div><div class="stream-info"><div class="stream-name">Digital Products</div><div class="stream-desc">Templates, presets, Notion dashboards. Sell on Gumroad + LemonSqueezy</div><div class="stream-status">Status: 5 products listed</div></div><div class="stream-rev" id="s9">$0.00</div></div>
-
-      <!-- NEW MICRO-PROFIT STREAMS -->
-      <div class="stream-item" style="border-color:var(--orange);border-left:3px solid var(--orange)"><div class="stream-icon">📺</div><div class="stream-info"><div class="stream-name">Paid Video Watching</div><div class="stream-desc">Hideout.tv, Loot.tv, Swagbucks Watch, InboxDollars TV, AdWally. Passive ad revenue per view</div><div class="stream-status" style="color:var(--orange)">Status: Watcher active — 3 tabs streaming</div></div><div class="stream-rev" id="s10">$0.00</div></div>
-
-      <div class="stream-item" style="border-color:var(--cyan);border-left:3px solid var(--cyan)"><div class="stream-icon">✍️</div><div class="stream-info"><div class="stream-name">Paid Surveys & Reviews</div><div class="stream-desc">Survey Junkie, Pinecone Research, Google Opinion Rewards, Amazon Vine, UserTesting feedback</div><div class="stream-status" style="color:var(--cyan)">Status: Scribe active — 5 surveys queued</div></div><div class="stream-rev" id="s11">$0.00</div></div>
-
-      <div class="stream-item" style="border-color:var(--pink);border-left:3px solid var(--pink)"><div class="stream-icon">🧪</div><div class="stream-info"><div class="stream-name">App & Product Testing</div><div class="stream-desc">UserTesting $10/tests, BetaTesting, TestBirds, PlaytestCloud, Pinecone product trials</div><div class="stream-status" style="color:var(--pink)">Status: Sentry active — 2 tests running</div></div><div class="stream-rev" id="s12">$0.00</div></div>
-
-      <div class="stream-item" style="border-color:var(--teal);border-left:3px solid var(--teal)"><div class="stream-icon">🎁</div><div class="stream-info"><div class="stream-name">Sign-Up Bonuses & Referrals</div><div class="stream-desc">Bank bonuses, crypto faucets (FreeBitcoin, Cointiply), SoFi/Chime referrals, cashback portals</div><div class="stream-status" style="color:var(--teal)">Status: Prospect active — 4 bonuses queued</div></div><div class="stream-rev" id="s13">$0.00</div></div>
-
-      <div class="stream-item" style="border-color:var(--gold);border-left:3px solid var(--gold)"><div class="stream-icon">⚡</div><div class="stream-info"><div class="stream-name">Micro-Task Aggregation <span class="max-badge">R&D</span></div><div class="stream-desc">Amazon MTurk, Clickworker, Appen, Microworkers. Tiny tasks that add up. Archon's specialty.</div><div class="stream-status" style="color:var(--gold)">Status: Archon commanding — 50 HITs queued</div></div><div class="stream-rev" id="s14">$0.00</div></div>
-    </div>
-  </div>
-
-  <!-- TREASURY TAB -->
-  <div class="tab-panel" id="tab3">
-    <div class="section">
-      <div class="section-title" style="--section-color:var(--gold)">Treasury & Banking</div>
-      <div class="treasury-grid">
-        <div class="t-card"><div class="t-label">Total Revenue</div><div class="t-val" id="t1">$0.00</div><div class="t-change" id="c1">+0.00%</div></div>
-        <div class="t-card"><div class="t-label">Today's Haul</div><div class="t-val" id="t2">$0.00</div><div class="t-change" id="c2">+0.00%</div></div>
-        <div class="t-card"><div class="t-label">Completed</div><div class="t-val" id="t3">0</div><div class="t-change">tasks executed</div></div>
-        <div class="t-card"><div class="t-label">Avg/Task</div><div class="t-val" id="t4">$0.00</div><div class="t-change">per operation</div></div>
-      </div>
-
-      <div class="section-title" style="--section-color:var(--blue)">Agent Revenue Breakdown</div>
-      <div class="log-item" style="display:flex;justify-content:space-between;align-items:center"><span style="display:flex;align-items:center;gap:8px"><span class="agent-dot" style="background:#3b82f6;width:24px;height:24px;font-size:9px">MV</span> Maverick</span><strong id="r1">$0.00</strong></div>
-      <div class="revenue-bar"><div class="rev-fill stat-bar-fill" id="f1" style="width:0%;background:var(--blue)"></div></div>
-
-      <div class="log-item" style="display:flex;justify-content:space-between;align-items:center;margin-top:8px"><span style="display:flex;align-items:center;gap:8px"><span class="agent-dot" style="background:#ef4444;width:24px;height:24px;font-size:9px">CT</span> Catalyst</span><strong id="r2">$0.00</strong></div>
-      <div class="revenue-bar"><div class="rev-fill stat-bar-fill" id="f2" style="width:0%;background:var(--red)"></div></div>
-
-      <div class="log-item" style="display:flex;justify-content:space-between;align-items:center;margin-top:8px"><span style="display:flex;align-items:center;gap:8px"><span class="agent-dot" style="background:#22c55e;width:24px;height:24px;font-size:9px">CP</span> Cipher</span><strong id="r3">$0.00</strong></div>
-      <div class="revenue-bar"><div class="rev-fill stat-bar-fill" id="f3" style="width:0%;background:var(--green)"></div></div>
-
-      <div class="log-item" style="display:flex;justify-content:space-between;align-items:center;margin-top:8px"><span style="display:flex;align-items:center;gap:8px"><span class="agent-dot" style="background:#a855f7;width:24px;height:24px;font-size:9px">VC</span> Vector</span><strong id="r4">$0.00</strong></div>
-      <div class="revenue-bar"><div class="rev-fill stat-bar-fill" id="f4" style="width:0%;background:var(--purple)"></div></div>
-
-      <div class="log-item" style="display:flex;justify-content:space-between;align-items:center;margin-top:8px"><span style="display:flex;align-items:center;gap:8px"><span class="agent-dot" style="background:#6b7280;width:24px;height:24px;font-size:9px">NX</span> Nexus</span><strong id="r5">$0.00</strong></div>
-      <div class="revenue-bar"><div class="rev-fill stat-bar-fill" id="f5" style="width:0%;background:var(--gray)"></div></div>
-
-      <div class="log-item" style="display:flex;justify-content:space-between;align-items:center;margin-top:8px"><span style="display:flex;align-items:center;gap:8px"><span class="agent-dot" style="background:#f59e0b;width:24px;height:24px;font-size:9px">AR</span> Archon <span class="max-badge">MAX</span></span><strong id="r6">$0.00</strong></div>
-      <div class="revenue-bar"><div class="rev-fill stat-bar-fill" id="f6" style="width:0%;background:var(--gold)"></div></div>
-
-      <div class="log-item" style="display:flex;justify-content:space-between;align-items:center;margin-top:8px"><span style="display:flex;align-items:center;gap:8px"><span class="agent-dot" style="background:#f97316;width:24px;height:24px;font-size:9px">WA</span> Watcher</span><strong id="r7">$0.00</strong></div>
-      <div class="revenue-bar"><div class="rev-fill stat-bar-fill" id="f7" style="width:0%;background:var(--orange)"></div></div>
-
-      <div class="log-item" style="display:flex;justify-content:space-between;align-items:center;margin-top:8px"><span style="display:flex;align-items:center;gap:8px"><span class="agent-dot" style="background:#06b6d4;width:24px;height:24px;font-size:9px">SC</span> Scribe</span><strong id="r8">$0.00</strong></div>
-      <div class="revenue-bar"><div class="rev-fill stat-bar-fill" id="f8" style="width:0%;background:var(--cyan)"></div></div>
-
-      <div class="log-item" style="display:flex;justify-content:space-between;align-items:center;margin-top:8px"><span style="display:flex;align-items:center;gap:8px"><span class="agent-dot" style="background:#ec4899;width:24px;height:24px;font-size:9px">SE</span> Sentry</span><strong id="r9">$0.00</strong></div>
-      <div class="revenue-bar"><div class="rev-fill stat-bar-fill" id="f9" style="width:0%;background:var(--pink)"></div></div>
-
-      <div class="log-item" style="display:flex;justify-content:space-between;align-items:center;margin-top:8px"><span style="display:flex;align-items:center;gap:8px"><span class="agent-dot" style="background:#14b8a6;width:24px;height:24px;font-size:9px">PR</span> Prospect</span><strong id="r10">$0.00</strong></div>
-      <div class="revenue-bar"><div class="rev-fill stat-bar-fill" id="f10" style="width:0%;background:var(--teal)"></div></div>
-    </div>
-
-    <div class="section">
-      <div class="section-title" style="--section-color:var(--green)">Bank Connections</div>
-      <div class="bank-grid">
-        <div class="bank-card"><div class="bank-logo">🏦</div><div class="bank-info"><div class="bank-name">Stripe</div><div class="bank-status">Not connected</div></div><button class="bank-btn">Connect</button></div>
-        <div class="bank-card"><div class="bank-logo">💳</div><div class="bank-info"><div class="bank-name">PayPal</div><div class="bank-status">Not connected</div></div><button class="bank-btn">Connect</button></div>
-        <div class="bank-card"><div class="bank-logo">🏛️</div><div class="bank-info"><div class="bank-name">Mercury</div><div class="bank-status">Not connected</div></div><button class="bank-btn">Connect</button></div>
-        <div class="bank-card"><div class="bank-logo">💰</div><div class="bank-info"><div class="bank-name">Wise</div><div class="bank-status">Not connected</div></div><button class="bank-btn">Connect</button></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ACTIVITY TAB -->
-  <div class="tab-panel" id="tab4">
-    <div class="section">
-      <div class="section-title" style="--section-color:var(--blue)">Live Activity Log</div>
-      <div id="activity-log">
-        <div class="log-item"><span class="log-time">08:00</span><span style="color:var(--gold);font-weight:600">Archon</span> Deployed full micro-profit suite. All 10 agents active. Target: every available cent online.</div>
-        <div class="log-item"><span class="log-time">08:00</span><span style="color:var(--orange);font-weight:600">Watcher</span> Started Hideout.tv stream. Rate: $0.003 per ad. Queue: 250 videos.</div>
-        <div class="log-item"><span class="log-time">08:01</span><span style="color:var(--cyan);font-weight:600">Scribe</span> Completed 3 Google Opinion Rewards surveys. Earned: $0.27. Queue: 12 more.</div>
-        <div class="log-item"><span class="log-time">08:01</span><span style="color:var(--blue);font-weight:600">Maverick</span> Discovered POD niche: developer motivation quotes. Estimated margin: 65%</div>
-        <div class="log-item"><span class="log-time">08:02</span><span style="color:var(--pink);font-weight:600">Sentry</span> Accepted UserTesting 20-min app test. Payout: $10.00. Starting screen recording.</div>
-        <div class="log-item"><span class="log-time">08:02</span><span style="color:var(--red);font-weight:600">Catalyst</span> Generated 12 design variants + SEO product titles. Upload queue: 50 items</div>
-        <div class="log-item"><span class="log-time">08:03</span><span style="color:var(--teal);font-weight:600">Prospect</span> Secured $75 Chase checking bonus + $50 SoFi referral link. Sign-up queue: 4.</div>
-        <div class="log-item"><span class="log-time">08:03</span><span style="color:var(--green);font-weight:600">Cipher</span> Deployed Printful API bot. Auto-sync inventory every 15 minutes. Status: ACTIVE</div>
-        <div class="log-item"><span class="log-time">08:04</span><span style="color:var(--purple);font-weight:600">Vector</span> Executed BTC arbitrage: Binance→Coinbase. Profit: +$12.40. Risk: minimal</div>
-        <div class="log-item"><span class="log-time">08:04</span><span style="color:var(--orange);font-weight:600">Watcher</span> Swagbucks survey completed. Length: 8 mins. Payout: $0.45. DQ rate: 12%</div>
-        <div class="log-item"><span class="log-time">08:05</span><span style="color:var(--gray);font-weight:600">Nexus</span> Secured micro-influencer deal: 5k followers, $50 flat + 10% commission</div>
-        <div class="log-item"><span class="log-time">08:05</span><span style="color:var(--blue);font-weight:600">Maverick</span> Found dropship supplier: phone accessories, 40% margin, 7-day shipping</div>
-        <div class="log-item"><span class="log-time">08:06</span><span style="color:var(--cyan);font-weight:600">Scribe</span> Wrote 2 Amazon Vine reviews. Word count: 150 each. Pending approval.</div>
-        <div class="log-item"><span class="log-time">08:06</span><span style="color:var(--red);font-weight:600">Catalyst</span> Faceless video #3 rendered. Topic: Top 10 AI Tools 2026. Duration: 8:32</div>
-        <div class="log-item"><span class="log-time">08:07</span><span style="color:var(--green);font-weight:600">Cipher</span> Shopify store auto-configured. Payment gateway: Stripe (test mode)</div>
-        <div class="log-item"><span class="log-time">08:07</span><span style="color:var(--teal);font-weight:600">Prospect</span> Claimed Cointiply faucet drip: 32 coins. FreeBitcoin hourly roll: $0.0023.</div>
-        <div class="log-item"><span class="log-time">08:08</span><span style="color:var(--pink);font-weight:600">Sentry</span> BetaTesting app bug found — UI crash on iOS 17. Report submitted. Bounty: $5.00</div>
-        <div class="log-item"><span class="log-time">08:08</span><span style="color:var(--gold);font-weight:600">Archon</span> MTurk HIT batch accepted: 50 image categorizations. Rate: $0.02/HIT. Est: $1.00</div>
-      </div>
+  <div class="section">
+    <div class="section-title" style="--section-color:var(--purple)">Agent Intermingle — Live Chat</div>
+    <div class="chat-box" id="chat-box">
+      <div class="chat-line"><span class="log-time">08:00</span><span class="chat-name" style="color:var(--gold)">Archon:</span> All micro-task channels are now live. Watcher, start the ad-roll queue. Scribe, fire up the review pipelines.</div>
+      <div class="chat-line"><span class="log-time">08:01</span><span class="chat-name" style="color:var(--orange)">Watcher:</span> Hideout.tv and Loot.tv streams running. Swagbucks survey router connected. Estimated $0.40/hr passive.</div>
+      <div class="chat-line"><span class="log-time">08:02</span><span class="chat-name" style="color:var(--cyan)">Scribe:</span> Amazon review queue loaded. 12 products ready. UserTesting profile optimized. Ready to write.</div>
+      <div class="chat-line"><span class="log-time">08:03</span><span class="chat-name" style="color:var(--pink)">Sentry:</span> BetaTesting and TestBirds accounts active. 3 app tests in queue. Pinecone Research dashboard green.</div>
+      <div class="chat-line"><span class="log-time">08:04</span><span class="chat-name" style="color:var(--teal)">Prospect:</span> Found $75 Chase checking bonus, $50 SoFi referral, and 3 crypto faucet drips. Sign-up queue ready.</div>
+      <div class="chat-line"><span class="log-time">08:05</span><span class="chat-name" style="color:var(--indigo)">Scout:</span> eBay lot found: 50 unopened Funko Pops for $80. Estimated resale: $180 on Mercari. Should I pull the trigger?</div>
+      <div class="chat-line"><span class="log-time">08:06</span><span class="chat-name" style="color:var(--yellow)">Lens:</span> Photo studio is lit. Ready for inventory uploads. I'll auto-generate eBay, Mercari, and Poshmark listings.</div>
+      <div class="chat-line"><span class="log-time">08:07</span><span class="chat-name" style="color:var(--amber)">Courier:</span> Label printer is online. 12 boxes in stock. Ready to receive Scout's shipments and ship Lens's sales.</div>
+      <div class="chat-line"><span class="log-time">08:08</span><span class="chat-name" style="color:var(--blue)">Maverick:</span> Great. I'm routing POD niches to Catalyst. Cipher, keep the bots running. Scout, buy that lot.</div>
     </div>
   </div>
 </div>
-
-<script>
-function showTab(n){
-  document.querySelectorAll('.tab-btn').forEach(function(b,i){b.classList.toggle('active',i===n)});
-  document.querySelectorAll('.tab-panel').forEach(function(p,i){p.classList.toggle('active',i===n)});
-}
-
-// ===== PERSISTENCE & REALISTIC ECONOMY =====
-// Load saved state or init fresh
-var saved = localStorage.getItem('brolly_state');
-var time, total, today, done, agentRevs, lastTick, lastDate;
-
-function initState(){
-  var now = new Date();
-  var mins = now.getHours()*60 + now.getMinutes();
-  time = mins;
-  total = 0;
-  today = 0;
-  done = 0;
-  agentRevs = [0,0,0,0,0,0,0,0,0,0]; // 10 agents
-  lastTick = Date.now();
-  lastDate = now.toDateString();
-}
-
-if(saved){
-  try{
-    var s = JSON.parse(saved);
-    // Check if it's a new day — reset "today" if so
-    var nowStr = new Date().toDateString();
-    if(s.lastDate !== nowStr){
-      s.today = 0;
-      s.lastDate = nowStr;
-    }
-    time = s.time || 480;
-    total = s.total || 0;
-    today = s.today || 0;
-    done = s.done || 0;
-    agentRevs = s.agentRevs || [0,0,0,0,0,0,0,0,0,0];
-    lastTick = Date.now();
-    lastDate = s.lastDate;
-  }catch(e){ initState(); }
-}else{
-  initState();
-}
-
-function saveState(){
-  localStorage.setItem('brolly_state', JSON.stringify({
-    time: time, total: total, today: today, done: done,
-    agentRevs: agentRevs, lastDate: lastDate
-  }));
-}
-
-// Realistic micro-task payout ranges (in dollars)
-// Agents: MV, CT, CP, VC, NX, AR, WA, SC, SE, PR
-var taskTypes = [
-  {agents:[0], min:0.50, max:3.00, name:'niche find'},       // Maverick
-  {agents:[1], min:0.20, max:1.50, name:'content'},          // Catalyst
-  {agents:[2], min:0.10, max:0.80, name:'bot deploy'},     // Cipher
-  {agents:[3], min:1.00, max:8.00, name:'arbitrage'},      // Vector (bigger money)
-  {agents:[4], min:0.50, max:4.00, name:'deal close'},     // Nexus
-  {agents:[5], min:0.05, max:2.00, name:'R&D op'},         // Archon (broad range)
-  {agents:[6], min:0.01, max:0.50, name:'video watch'},    // Watcher (micro)
-  {agents:[7], min:0.05, max:1.20, name:'survey/review'},  // Scribe
-  {agents:[8], min:0.50, max:10.00, name:'app test'},      // Sentry (can be good)
-  {agents:[9], min:0.10, max:5.00, name:'bonus hunt'}      // Prospect
-];
-
-// Activity log messages per agent
-var logMessages = {
-  0: ['Found POD niche: gym motivation mugs','Scored dropship supplier: LED strips','Identified trending TikTok product','Sourced wholesale contact: phone cases'],
-  1: ['Rendered faceless video segment','Wrote SEO product description batch','Generated thumbnail variants','Scripted YouTube Short #12'],
-  2: ['Deployed scraper bot for pricing','Fixed Printful API sync','Updated Shopify inventory','Configured auto-email responder'],
-  3: ['BTC arbitrage: +1.2% spread','Executed ETH limit order','Scanned DeFi yield farm','Set stop-loss on swing trade'],
-  4: ['Closed micro-influencer deal','Negotiated affiliate rate bump','Replied to brand outreach','Scheduled TikTok collab post'],
-  5: ['Discovered new faucet source','Optimized MTurk HIT selection','Mapped sign-up bonus pipeline','Analyzed competitor revenue streams'],
-  6: ['Swagbucks video round complete','Hideout.tv ad queue cleared','InboxDollars offer completed','Loot.tv passive cycle done'],
-  7: ['Google Opinion survey done','Amazon Vine review submitted','UserTesting feedback sent','Pinecone Research survey complete'],
-  8: ['UserTesting 20-min app test done','BetaTesting bug report submitted','PlaytestCloud game session complete','Product trial feedback delivered'],
-  9: ['Bank bonus sign-up submitted','Crypto faucet claimed','Referral link distributed','Cashback portal purchase tracked']
-};
-
-function tick(){
-  var now = Date.now();
-  if(now - lastTick < 1000) return;
-  lastTick = now;
-
-  // Advance time by 1 minute per real second (fast simulation)
-  time = (time + 1) % (24*60);
-  var h = Math.floor(time/60) % 24;
-  var m = time % 60;
-  document.getElementById('clk').textContent = String(h).padStart(2,'0') + ':' + String(m).padStart(2,'0');
-
-  // 15% chance per tick of a micro-task completion
-  if(Math.random() < 0.15){
-    // Pick a random task type
-    var task = taskTypes[Math.floor(Math.random()*taskTypes.length)];
-    var agentIdx = task.agents[Math.floor(Math.random()*task.agents.length)];
-    var val = Math.random()*(task.max - task.min) + task.min;
-
-    total += val;
-    today += val;
-    done++;
-    agentRevs[agentIdx] += val;
-
-    // Update displays
-    document.getElementById('rev').textContent = '$' + total.toFixed(2);
-    document.getElementById('today-rev').textContent = '$' + today.toFixed(2);
-    document.getElementById('t1').textContent = '$' + total.toFixed(2
